@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter.ttk import Combobox
 
 class Base():
     def __init__(self):
@@ -223,27 +224,127 @@ class Motor(Frame):
     def __init__(self):
        Frame.__init__(self) 
        
+       #----------------------------------------------------------------Variables----------------------------------------------------------------------------------------------------
+       
+       self.motor_type_chosen = StringVar()
+       self.motor_selected = StringVar()
+       self.motor_selected.set('1')
+       
+       #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       
        self.motor_container= Frame(self,bg='gray',padx=400,pady=10)
        self.motor_container.pack(expand="True", fill='both')
        
        self.motor_label=Label(self.motor_container, text="Motors",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
        self.motor_label.grid(pady=5)
        
+       #----------------------------------------------------------------------------Settings -----------------------------------------------------------------------------------------
+       
+       self.motor_setings_container = LabelFrame(self.motor_container, bg="#4f4f4f",width='200', height='200',fg="white", pady = 20)
+       self.motor_setings_container.grid(row=1, pady=10, ipady=10)
+       
+       self.quantity_motor_lbl = Label(self.motor_setings_container, text='How many motors?', bg="#4f4f4f",font=("Robot", 16,"bold"))
+       self.quantity_motor_lbl.grid()
+       
+       #-----------------------------------------------------------
+       
+       values = {"1" : "1",
+                "2" : "2",
+                "3" : "3"}
+       
+       for (text, value) in values.items():
+            temp_radio = Radiobutton(self.motor_setings_container,bg="#4f4f4f", text = text, font=("Robot", 18,"normal"), variable = self.motor_selected,value = value)#,command=self.click_btn_radios)
+            temp_radio.grid()
+       
+       #-----------------------------------------------------------
+       
+       self.selected_btn = Button(self.motor_setings_container, text='Select Motor(s)', bg='green',fg='White',font=("Robot", 16,"bold"), command=self.get_selected_motor)
+       self.selected_btn.grid()
+       
+       #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       
        self.motor_exit_btn = Button(self.motor_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.motor_exit_btn.grid()
+    #-------------------------------------------------------------------------------Methods--------------------------------------------------------------------------------------------
+    def get_selected_motor(self):
+        self.motor_test_ammount = self.motor_selected.get()
+        #print(self.motor_test_ammount)
        
 class Encoder(Frame):
     def __init__(self):
        Frame.__init__(self) 
+       
+       #-------------------------------------------------------------------Frame & Title----------------------------------------------------------------------------------------------
        
        self.encoder_container= Frame(self,bg='gray',padx=400,pady=10)
        self.encoder_container.pack(expand="True", fill='both')
        
        self.encoder_label=Label(self.encoder_container, text="Encoders",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
        self.encoder_label.grid(pady=5)
+    
+       #-------------------------------------------------------------------------Variables--------------------------------------------------------------------------------------------
+       self.encoder_resolution_chosen = StringVar()
+       self.encoder_resolution_chosen.set('1 um')
+       self.digital_selected = StringVar()
+       self.digital_selected.set(1)
+       self.limit_mode = IntVar()
+       self.reference_mode = IntVar()
+       #------------------------------------------------------------------------Settings----------------------------------------------------------------------------------------------
+       
+       self.encoder_setings_container = LabelFrame(self.encoder_container, bg="#4f4f4f",width='200', height='200',fg="white", pady = 20)
+       self.encoder_setings_container.grid(row=1, pady=10, ipady=10)
+       
+       self.types_lbl = Label(self.encoder_setings_container,text='Resolution:', bg="#4f4f4f",font=("Robot", 16,"bold"))
+       self.types_lbl.grid()#sticky='ew')
+       
+       self.combobox_resolution_chossen = Combobox(self.encoder_setings_container,state='readonly', width = 15,font=("Robot", 16,"bold"), textvariable = self.encoder_resolution_chosen)
+       self.combobox_resolution_chossen ['values'] = ('5 um','1 um', '0.5 um', '0.1 um', '0.05 um')
+       self.combobox_resolution_chossen.grid(row=1, padx=10)
+       self.combobox_resolution_chossen.current()
+       
+       #--------------------------------------------------------------------------
+       
+       self.digital_encoder_lbl = Label(self.encoder_setings_container, text='Encoder Type:', bg="#4f4f4f",font=("Robot", 16,"bold"))
+       self.digital_encoder_lbl.grid(pady=(10,0))
+       
+       values = {"Analog Encoder" : "1",
+                "Digital Encoder" : "2"}
+       
+       for (text, value) in values.items():
+            temp_radio = Radiobutton(self.encoder_setings_container,bg="#4f4f4f", text = text, font=("Robot", 12,"normal"), variable = self.digital_selected,value = value)#,command=self.click_btn_radios)
+            temp_radio.grid()
+       
+       #--------------------------------------------------------------------------
+       
+       self.reference_chk = Checkbutton(self.encoder_setings_container, bg = "#4f4f4f", text = "Reference Mark", font=("Robot", 12), onvalue=1, offvalue=0, variable = self.reference_mode)
+       self.reference_chk.grid(pady=(10,0))  
+       
+       #--------------------------------------------------------------------------
+       
+       self.limit_chk = Checkbutton(self.encoder_setings_container, bg = "#4f4f4f", text = "Limit", font=("Robot", 12), onvalue=1, offvalue=0, variable = self.limit_mode)
+       self.limit_chk.grid(pady=10)
+       
+       #--------------------------------------------------------------------------
+       
+       self.update_btn = Button(self.encoder_setings_container, text='Update Settings', bg='green',fg='White',font=("Robot", 14,"bold"), command=self.update_encoder_settings)
+       self.update_btn.grid()
+        
+       #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
        
        self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.encoder_exit_btn.grid()
+       #---------------------------------------------------------------------------Methods--------------------------------------------------------------------------------------------
+       
+    def update_encoder_settings(self):
+        self.encoder_test_type = self.digital_selected.get()
+        self.updated_reference_mode = self.reference_mode.get()
+        self.updated_limit_mode = self.limit_mode.get()
+        """print(self.encoder_test_type)
+        print("\n")
+        print(self.updated_reference_mode)
+        print("\n")
+        print(self.updated_limit_mode)
+        print("\n")"""
     
 class PH10(Frame):
     def __init__(self):
