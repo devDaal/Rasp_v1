@@ -224,7 +224,7 @@ class Motor(Frame):
     def __init__(self):
        Frame.__init__(self) 
        
-       #----------------------------------------------------------------Variables----------------------------------------------------------------------------------------------------
+       #-------------------------------------------------------------------------Variables-------------------------------------------------------------------------------------------
        
        self.motor_type_chosen = StringVar()
        self.motor_selected = StringVar()
@@ -232,7 +232,7 @@ class Motor(Frame):
        
        #-------------------------------------------------------------------------Frame & Title---------------------------------------------------------------------------------------
        
-       self.motor_container= Frame(self,bg='gray',padx=400,pady=10)
+       self.motor_container= Frame(self,bg='gray',padx=40,pady=10)
        self.motor_container.pack(expand="True", fill='both')
        
        self.motor_label=Label(self.motor_container, text="Motors",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
@@ -261,8 +261,12 @@ class Motor(Frame):
        self.selected_btn = Button(self.motor_setings_container, text='Select Motor(s)', bg='green',fg='White',font=("Robot", 16,"bold"), command=self.get_selected_motor)
        self.selected_btn.grid()
        
-       #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       #-----------------------------------------------------------------------------Test Frame---------------------------------------------------------------------------------------
        
+       self.test_motor_container = LabelFrame(self.motor_container, bg="#4f4f4f",width='200',height='200')
+       self.test_motor_container.grid(row=1,column=1, padx=(50,0))
+       
+       #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
        self.motor_exit_btn = Button(self.motor_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.motor_exit_btn.grid()
     #-------------------------------------------------------------------------------Methods--------------------------------------------------------------------------------------------
