@@ -117,7 +117,7 @@ class StartPage(Frame):
         self.motor_frame = Frame(self.start_container, bg='gray',height='30', width='30')
         self.motor_frame.grid(row=1, column=2, padx=(50,50), pady=(80,50))
         
-        self.motor_photo = PhotoImage(file= "C:\\Users\\ITS_Servicio\\Desktop\\Raspv1\\Tests\\icons1\\motor.png").subsample(21,21)
+        self.motor_photo = PhotoImage(file= "icons1/motor.png").subsample(21,21)
         self.motor_btn = Button(self.motor_frame, image=self.motor_photo,bg= 'gray',command=lambda: app.show_frame(Motor))
         self.motor_btn.image= self.motor_photo
         self.motor_btn.grid(row='0')
@@ -131,7 +131,7 @@ class StartPage(Frame):
         self.encoder_frame = Frame(self.start_container, bg='gray',height='30', width='30')
         self.encoder_frame.grid(row=2, column=2, padx=(50,50), pady=(30,50))
         
-        self.encoder_photo = PhotoImage(file= "C:\\Users\\ITS_Servicio\\Desktop\\Raspv1\\Tests\\icons1\\encoder2.png").subsample(4,4)
+        self.encoder_photo = PhotoImage(file= "icons1/encoder2.png").subsample(4,4)
         self.encoder_btn = Button(self.encoder_frame, image=self.encoder_photo, bg= 'gray',command=lambda: app.show_frame(Encoder))
         self.encoder_btn.image= self.encoder_photo
         self.encoder_btn.grid(row='0')
@@ -144,7 +144,7 @@ class StartPage(Frame):
         self.settings_frame = Frame(self.start_container, bg='gray',height='30', width='30')
         self.settings_frame.grid(row=1, column=1, padx=(50,50), pady=(80,50))
         
-        self.settings_photo = PhotoImage(file= "C:\\Users\\ITS_Servicio\\Desktop\\Raspv1\\Tests\\icons1\\Imagen2.png").subsample(6,6)
+        self.settings_photo = PhotoImage(file= "icons1/Imagen2.png").subsample(6,6)
         self.settings_btn = Button(self.settings_frame,image=self.settings_photo, bg= 'gray',command=lambda: app.show_frame(Settings))
         self.settings_btn.image= self.settings_photo
         self.settings_btn.grid(row=0)
@@ -157,7 +157,7 @@ class StartPage(Frame):
         self.ph10_frame = Frame(self.start_container, bg='gray',height='30', width='30')
         self.ph10_frame.grid(row=2, column=1, padx=(50,50), pady=(30,50))
         
-        self.ph10_photo = PhotoImage(file= "C:\\Users\\ITS_Servicio\\Desktop\\Raspv1\\Tests\\icons1\\ph10.png").subsample(4,4)
+        self.ph10_photo = PhotoImage(file= "icons1/ph10.png").subsample(4,4)
         self.ph10_btn = Button(self.ph10_frame, bg= 'gray',image=self.ph10_photo,command=lambda: app.show_frame(PH10))
         self.ph10_btn.image= self.ph10_photo
         self.ph10_btn.grid(row=0)
@@ -170,7 +170,7 @@ class StartPage(Frame):
         self.sensor_frame = Frame(self.start_container, bg='gray',height='30', width='30')
         self.sensor_frame.grid(row=1, column=0, padx=(50,50), pady=(80,50))
         
-        self.sensor_photo = PhotoImage(file= "C:\\Users\\ITS_Servicio\\Desktop\\Raspv1\\Tests\\icons1\\sensor.png").subsample(22,22)
+        self.sensor_photo = PhotoImage(file= "icons1/sensor.png").subsample(22,22)
         self.sensor_btn = Button(self.sensor_frame, bg= 'gray', image=self.sensor_photo,command=lambda: app.show_frame(Sensor))
         self.sensor_btn.image = self.sensor_photo
         self.sensor_btn.grid(row=0)
@@ -184,7 +184,7 @@ class StartPage(Frame):
         self.jogbox_frame = Frame(self.start_container, bg='gray',height='30', width='30')
         self.jogbox_frame.grid(row=2, column=0, padx=(50,50), pady=(30,50))
         
-        self.jogbox_photo = PhotoImage(file= "C:\\Users\\ITS_Servicio\\Desktop\\Raspv1\\Tests\\icons1\\jogbox.png").subsample(6,6)
+        self.jogbox_photo = PhotoImage(file= "icons1/jogbox.png").subsample(6,6)
         self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command=lambda: app.show_frame(Jogbox))
         self.jogbox_btn.image = self.jogbox_photo
         self.jogbox_btn.grid(row=0)
