@@ -8,8 +8,8 @@ from goto import with_goto
 gp.setmode(gp.BOARD)
 
 # Pines del encoder
-A = 15
-B = 16
+A = 35
+B = 36
 
 # Variables globales
 contador = 0
@@ -50,16 +50,14 @@ def ciclo():
             fase = 4
 
         # Actualizar el contador normal si la fase incrementa en sentido horario
-        if (ultima_fase == 1 and fase == 2) or (ultima_fase == 2 and fase == 3) or \
-           (ultima_fase == 3 and fase == 4) or (ultima_fase == 4 and fase == 1):
+        if (ultima_fase == 1 and fase == 2):
             contador += 1
-            print("|",contador,"|Fase|",fase, "|" ,ultima_fase,"|Ult Fase|" " A |",pinA, "|",pinB,"| B |""Ult A|",ultimoA, "|",ultimoB, "|""Ult B")
+            #print("|",contador,"|Fase|",fase, "|" ,ultima_fase,"|Ult Fase|" " A |",pinA, "|",pinB,"| B |""Ult A|",ultimoA, "|",ultimoB, "|""Ult B")
 
         # Actualizar el contador de retroceso si la fase disminuye en sentido antihorario
-        elif (ultima_fase == 1 and fase == 4) or (ultima_fase == 4 and fase == 3) or \
-             (ultima_fase == 3 and fase == 2) or (ultima_fase == 2 and fase == 1):
+        elif (ultima_fase == 1 and fase == 4):
             contador_retro += 1
-            print(contador_retro,"|""Fase |",fase, "|" ,ultima_fase,"|""Ult Fase |" " A |",pinA, "|",pinB,"| B |""Ult A|",ultimoA, "|",ultimoB, "|""Ult B")
+            #print(contador_retro,"|""Fase |",fase, "|" ,ultima_fase,"|""Ult Fase |" " A |",pinA, "|",pinB,"| B |""Ult A|",ultimoA, "|",ultimoB, "|""Ult B")
 
     else:
         goto.verificar_pines
@@ -74,18 +72,19 @@ def ciclo():
 
 # Función principal
 def iniciar_conteo():
+    tiempo = 3
     print("Presiona Enter para comenzar el conteo.")
     input()  # Espera a que el usuario presione Enter
-    print("Comenzando conteo por 10 segundos...")
+    print("Comenzando conteo por",tiempo,"segundos...")
 
     # Ejecutar el conteo durante 10 segundos
     tiempo_inicio = time.time()
-    while time.time() - tiempo_inicio < 5:
+    while time.time() - tiempo_inicio < tiempo:
         ciclo()
 
     print("Contador Final Avance |", contador, "|")
     print("Contador Final Retroceso |", contador_retro, "|")
-    print("Conteo detenido después de 10 segundos.")
+    print("Conteo detenido después de",tiempo,"segundos.")
     gp.cleanup()  # Limpiar la configuración de los pines GPIO
 
 # Iniciar el programa

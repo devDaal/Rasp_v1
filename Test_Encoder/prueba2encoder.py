@@ -1,5 +1,5 @@
 import RPi.GPIO as gp
-
+import time
 gp.setmode(gp.BOARD)
 
 # Pines del encoder
@@ -43,7 +43,7 @@ def ciclo():
     # Actualizar el contador de retroceso si la fase disminuye en sentido antihorario
     elif (ultima_fase == 1 and fase == 4) or (ultima_fase == 4 and fase == 3) or \
          (ultima_fase == 3 and fase == 2) or (ultima_fase == 2 and fase == 1):
-        contador_retro += 1
+        contador -= 1
         updated = True
 
     # Guardar la fase actual como la última para la próxima iteración
@@ -53,7 +53,7 @@ def imprimir_resultado():
     global updated
     if updated:
         print("Contador Avance |", contador, "|")
-        print("Contador Retroceso |", contador_retro, "|")
+        #print("Contador Retroceso |", contador_retro, "|")
         updated = False
 
 try:

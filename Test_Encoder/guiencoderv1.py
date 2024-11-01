@@ -22,6 +22,11 @@ class Encoder(Frame):
        self.digital_selected.set(1)
        self.limit_mode = IntVar()
        self.reference_mode = IntVar()
+       self.counter = 0
+       self.phase = 0
+       self.last_phase = 0
+       self.updated = False
+       
        #------------------------------------------------------------------------Settings----------------------------------------------------------------------------------------------
        
        self.encoder_setings_container = LabelFrame(self.encoder_container, bg="#4f4f4f",width='200', height='200',fg="white", pady = 20)
@@ -117,6 +122,15 @@ class Encoder(Frame):
 
        self.distance_lbl_encoder_3 = Label(self.frame_encoder_3, text='       3', bg="gray", fg='black', font=("Robot", 15, "normal"))
        self.distance_lbl_encoder_3.grid(sticky='e')
+       #----------------------------------------------------------------------GPIO pins-----------------------------------------------------------------------------------------------
+       
+       gp.setmode(gp.BOARD)
+       self.read_pin_15 = 15
+       self.read_pin_16 = 16
+       gp.setup(self.read_pin_15, gp.IN)
+       gp.setup(self.read_pin_16, gp.IN)
+       
+       self.encoder_start_mode = False
        
        #---------------------------------------------------------------------------Methods--------------------------------------------------------------------------------------------
        
@@ -167,6 +181,30 @@ class Encoder(Frame):
         pass
     def stop_btn_encoder(self):
         pass
+    def distance_counter_x(self):
+        pass
+    def cycle (self):
+        self.pinA = gp.input(A)
+        self.pinB = gp.input(B)
+        if self.pinA == 0 and self.pinB == 0:
+            self.phase = 1
+        elif self.pinA == 0 and self.pinB == 1:
+            self.phase = 2
+        elif self.pinA == 1 and self.pinB == 1:
+            self.phase = 3
+        elif self.pinA == 1 and self.pinB == 0:
+            self.phase = 4
+        if (ultima_fase == 1 and self.phase == 2) or (ultima_fase == 2 and self.phase == 3) or \
+           (ultima_fase == 3 and self.phase == 4) or (ultima_fase == 4 and self.phase == 1):
+            contador += 1
+            updated = True
+
+    # Actualizar el contador de retroceso si la fase disminuye en sentido antihorario
+        elif (ultima_fase == 1 and fase == 4) or (ultima_fase == 4 and fase == 3) or \
+             (ultima_fase == 3 and fase == 2) or (ultima_fase == 2 and fase == 1):
+            contador -= 1
+            updated = True   
+        
 class App(Tk):
     def __init__(self):
         super().__init__()

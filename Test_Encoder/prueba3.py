@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 import time
 
 # Configuración de los pines GPIO
-PIN_A = 17  # Pin GPIO para la señal A del encoder
-PIN_B = 27  # Pin GPIO para la señal B del encoder
+PIN_A = 22  # Pin GPIO para la señal A del encoder
+PIN_B = 23  # Pin GPIO para la señal B del encoder
 
 # Variables globales
 contador = 0  # Almacena el conteo de pulsos
