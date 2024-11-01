@@ -1,7 +1,7 @@
 import RPi.GPIO as gp
 import time
 import threading
-
+#
 
 gp.setmode(gp.BOARD)
 A = 35
