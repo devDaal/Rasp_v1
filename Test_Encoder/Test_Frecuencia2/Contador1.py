@@ -49,6 +49,8 @@ def iniciar_conteo():
     contador_abs = contador_pos - contador_neg
     posicion = contador_abs/500
     print("Contador Avance |", posicion, "|")
+    print("Contador Positivo",contador_pos)
+    print("Contador Negativo",contador_neg)
     print("Conteo detenido después de",tiempo, "segundos.")
     gp.cleanup()
 #---------------------------------------------------------------------------------------------------------------

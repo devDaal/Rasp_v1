@@ -36,7 +36,7 @@ def ciclo():
     
 # -----------------------------------------------Función principal----------------------------------------------
 def iniciar_conteo():
-    tiempo = 40
+    tiempo = 15
     print("Presiona Enter para comenzar el conteo.")
     input()
     print("Comenzando conteo por ", tiempo ," segundos...")
