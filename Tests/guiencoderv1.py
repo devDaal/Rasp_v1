@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter.ttk import Combobox
 import RPi.GPIO as gp
 import time
+import multiprocessing
 
 class Encoder(Frame):
     def __init__(self):
@@ -175,8 +176,9 @@ class Encoder(Frame):
        self.resolution = 1
        
         # Iniciar hilo para el encoder
-       self.encoder_thread = threading.Thread(target=self.cycle)
-       self.encoder_thread.daemon = True  # Permite terminar el hilo al cerrar la app
+       """self.encoder_thread = threading.Thread(target=self.cycle)
+       self.encoder_thread.daemon = True  # Permite terminar el hilo al cerrar la app"""
+       self.encoder_multiprocess = multiprocessing.Process(target=self.cycle)
        self.running_status = True
        self.encoder_start = False
        
@@ -259,11 +261,12 @@ class Encoder(Frame):
         self.cycle_status = True
         self.update_ui()
         if not self.encoder_start:
-            self.encoder_thread.start()
+            self.encoder_multiprocess.start()
             self.encoder_start = True
         
     def stop_btn_encoder(self):
         self.cycle_status = False
+        self.encoder_multiprocess.terminate()
         
     def restart_btn_encoder(self):
         self.positive_counter = 0
