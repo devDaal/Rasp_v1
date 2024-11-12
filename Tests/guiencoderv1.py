@@ -174,6 +174,8 @@ class Encoder(Frame):
        self.encoder_start_mode = False
        self.resolution = 1
        
+       self.stop_threads = False
+       
         # Iniciar hilo para el encoder
        self.encoder_thread = threading.Thread(target=self.cycle)
        self.encoder_thread.daemon = True  # Permite terminar el hilo al cerrar la app
@@ -297,6 +299,8 @@ class Encoder(Frame):
             self.lastB = self.pinB
             self.absolute_counter = self.positive_counter - self.negative_counter
             self.position = self.absolute_counter/int(self.resolution)
+            if self.stop_threads:
+                break
         
     def update_ui(self):
         if self.cycle_status:

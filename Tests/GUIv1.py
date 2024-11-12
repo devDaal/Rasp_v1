@@ -217,8 +217,20 @@ class Encoder1(Encoder):
     def __init__(self):
         Frame.__init__(self)
         Encoder.__init__(self)
-        self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
+        self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=self.exit_btn)
         self.encoder_exit_btn.grid()
+        
+    def exit_btn (self):
+        if not self.stop_threads:
+            if messagebox.askokcancel(title="Warning", message="If you exit now you'll have to restart the app to use the encoder test again",icon = 'warning'):
+                app.show_frame(StartPage)
+                self.stop_threads = True
+            else:
+                pass
+        else:
+            app.show_frame(StartPage)
+       
+            
 
 class Settings(Frame):
     def __init__(self):
