@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
+from guiencoderv1 import Encoder
 
 class Base():
     def __init__(self):
@@ -17,6 +18,11 @@ class Base():
             frame.grid(row=0, column=0, sticky="nsew")  # Load the frame objects into a grid stacking them on top of each other
             self.grid_rowconfigure(0, weight=1)
             self.grid_columnconfigure(0, weight=1)
+        
+        #¿Cómo agregar un frame al diccionario?¿Cómo hacer eso desde otro archivo?
+        #Despues del for concatenar¿? el frame que tengo de la página de encoders para que quede agregado al final
+        #y no afectar lo primero que hay. Poner entre comillas el frame que hay aqui del encoder, para no batallar
+        #con que se llamen igual
             
     def show_frame(self, frame_to_show):
         """ 
@@ -65,8 +71,8 @@ class App(Base,Tk):
         self.grid_columnconfigure(0, weight=1)
         self.port = None
         self.connect_status = 0
-        
-        self.load_frames(StartPage, Settings, Motor, Encoder, Jogbox, Sensor, PH10)
+        #Encoder()
+        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10)
         self.show_frame(StartPage)  # Frame object to show at the top screen
         
         """self.photo_logo = PhotoImage(file= "icons\its-logo-short.png").subsample(10,10)
@@ -132,7 +138,7 @@ class StartPage(Frame):
         self.encoder_frame.grid(row=2, column=2, padx=(50,50), pady=(30,50))
         
         self.encoder_photo = PhotoImage(file= "icons1/encoder2.png").subsample(4,4)
-        self.encoder_btn = Button(self.encoder_frame, image=self.encoder_photo, bg= 'gray',command=lambda: app.show_frame(Encoder))
+        self.encoder_btn = Button(self.encoder_frame, image=self.encoder_photo, bg= 'gray',command=lambda: app.show_frame(Encoder1))
         self.encoder_btn.image= self.encoder_photo
         self.encoder_btn.grid(row='0')
         
@@ -207,6 +213,13 @@ class StartPage(Frame):
             self.counter_easter = 0
             messagebox.showinfo("Developers","GUI developed by Alwurts and Daal")
 
+class Encoder1(Encoder):
+    def __init__(self):
+        Frame.__init__(self)
+        Encoder.__init__(self)
+        self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
+        self.encoder_exit_btn.grid()
+
 class Settings(Frame):
     def __init__(self):
        Frame.__init__(self) 
@@ -273,7 +286,7 @@ class Motor(Frame):
     def get_selected_motor(self):
         self.motor_test_ammount = self.motor_selected.get()
         #print(self.motor_test_ammount)
-       
+"""       
 class Encoder(Frame):
     def __init__(self):
        Frame.__init__(self) 
@@ -343,13 +356,13 @@ class Encoder(Frame):
         self.encoder_test_type = self.digital_selected.get()
         self.updated_reference_mode = self.reference_mode.get()
         self.updated_limit_mode = self.limit_mode.get()
-        """print(self.encoder_test_type)
-        print("\n")
-        print(self.updated_reference_mode)
-        print("\n")
-        print(self.updated_limit_mode)
-        print("\n")"""
-    
+#        print(self.encoder_test_type)
+#        print("\n")
+#        print(self.updated_reference_mode)
+#        print("\n")
+#        print(self.updated_limit_mode)
+#        print("\n")
+"""   
 class PH10(Frame):
     def __init__(self):
        Frame.__init__(self) 
