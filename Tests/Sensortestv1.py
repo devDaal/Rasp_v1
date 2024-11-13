@@ -70,6 +70,13 @@ class SensorTest(Frame):
         self.pin_22_lbl = Label(self.sensor_test_container, text=' PIN 22', bg='gray', width=6, height=3,font=("Robot",12,"normal"))
         self.pin_22_lbl.grid(row=2,column=3,padx=5,pady=5)
         
+        self.sensor_lbls_dictionary = {self.pin_11_lbl : "1",
+                                       self.pin_13_lbl : "2",
+                                       self.pin_15_lbl : "3",
+                                       self.pin_16_lbl : "4",
+                                       self.pin_18_lbl : "5",
+                                       self.pin_22_lbl : "6"}
+        
         # Configuración de los pines GPIO
         gp.setmode(gp.BOARD)
         self.read_pin_11 = 11
@@ -120,6 +127,18 @@ class SensorTest(Frame):
     # Funcionalidad de botones
     def get_selected_sensor(self):
         self.test_amount_sensor = self.sensor_selected.get()
+        self.show_hide_sensors_lbls()
+        
+    def show_hide_sensors_lbls(self):
+        for self.test_amount_sensor in self.sensor_lbls_dictionary:
+            self.sensor_lbls_dictionary.keys() #.grid
+                                                # crear una lista con los que sí están seleccionados y crear una
+                                                #con los no seleccionados para mostrar la 1er lista y ocultar la 2da
+            
+        #se puede hacer aqui un diccionario con los nombres de los labels para mostrar y relacionados con el número
+        #para iterar el diccionario y no poner 9 casos de elif
+        
+        
         
 class App(Tk):
     def __init__(self):
