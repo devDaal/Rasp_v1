@@ -157,12 +157,6 @@ class Encoder(Frame):
        #----------------------------------------------------------------------GPIO pins-----------------------------------------------------------------------------------------------
        
         gp.setmode(gp.BOARD)
-        self.A = 35
-        self.B = 36
-        self.C = 37
-        gp.setup(self.A, gp.IN)
-        gp.setup(self.B, gp.IN)
-        gp.setup(self.C, gp.IN)
         self.lastA = None
         self.lastB = None
         self.lastC = None
@@ -174,10 +168,10 @@ class Encoder(Frame):
         self.encoder_start_mode = False
         self.resolution = 1
        
-        # Iniciar hilo para el encoder
-        self.encoder_thread = threading.Thread(target=self.cycle)
+        # Iniciar hilo para el encoder            Probablemente necesite usar multiprocessing, los threads no corren simultáneamente, hay q hacer pruebas para ver cómo se mueven
+        self.encoder_thread = threading.Thread(target=self.cycle, args=(35,36,37)) 
         self.encoder_thread.daemon = True  # Permite terminar el hilo al cerrar la app
-        self.running_status = True
+        self.running_status = True #Esta variable creo que no es necesaria
         self.encoder_thread.start()
        
        
@@ -269,12 +263,15 @@ class Encoder(Frame):
         
     def distance_counter_x(self):
         pass
-    def cycle (self):
+    def cycle (self, A, B, C): #Crear ciclos para x y z
+        gp.setup(A, gp.IN)
+        gp.setup(B, gp.IN)
+        gp.setup(C, gp.IN)
         while self.running_status:
-            self.pinB = gp.input(self.B)
-            self.pinA = gp.input(self.A)
+            self.pinB = gp.input(B)
+            self.pinA = gp.input(A)
             if self.updated_reference_mode:
-                self.pinC = gp.input(self.C)
+                self.pinC = gp.input(C)
                 #Aqui mas o menos debe de ir mostrar y ocultar el cuadrito
                 if self.lastC != self.pinC:
                     if self.pinC == 1:
