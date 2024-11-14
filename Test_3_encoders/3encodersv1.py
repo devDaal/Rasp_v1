@@ -34,6 +34,30 @@ class Encoder(Frame):
            "0.1 um":"2500",
            "0.05 um":"5000"
            }
+       #-------------------------------------GPIO pins------------------------------
+            
+        gp.setmode(gp.BOARD)
+        self.lastA = None
+        self.lastB = None
+        self.lastC = None
+        self.positive_counter = 0
+        self.negative_counter = 0
+        self.cycle_status = True
+        self.position = 0
+        self.absolute_counter = 0
+        self.encoder_start_mode = False
+        self.resolution = 1
+       
+        # Iniciar hilo para el encoder             
+        self.encoder_thread_x = threading.Thread(target=self.cycle, args=(35,36,37))          #Probablemente necesite usar multiprocessing, los threads no corren simultáneamente,
+        self.encoder_thread_x.daemon = True  # Permite terminar el hilo al cerrar la app       hay q hacer pruebas para ver cómo se mueven
+        self.running_status = True #Esta variable creo que no es necesaria
+        self.encoder_thread_x.start()
+        
+        self.encoder_thread_y = threading.Thread(target=self.cycle, args=(29,31,33))
+        self.encoder_thread_y.daemon = True
+        self.encoder_thread_y.start()
+       
               
        #------------------------------------------------------------------------Settings----------------------------------------------------------------------------------------------
        
@@ -153,27 +177,6 @@ class Encoder(Frame):
         self.ref_mark_3_lbl = Label(self.encoder_test_container, text=' RM3', bg='gray',width=4, font=("Robot",10,"normal"))
         self.ref_mark_3_lbl.grid(row=3,column=3,pady=(5,0),padx = 5)
         self.ref_mark_3_lbl.grid_remove()
-       
-       #----------------------------------------------------------------------GPIO pins-----------------------------------------------------------------------------------------------
-       
-        gp.setmode(gp.BOARD)
-        self.lastA = None
-        self.lastB = None
-        self.lastC = None
-        self.positive_counter = 0
-        self.negative_counter = 0
-        self.cycle_status = True
-        self.position = 0
-        self.absolute_counter = 0
-        self.encoder_start_mode = False
-        self.resolution = 1
-       
-        # Iniciar hilo para el encoder            Probablemente necesite usar multiprocessing, los threads no corren simultáneamente, hay q hacer pruebas para ver cómo se mueven
-        self.encoder_thread = threading.Thread(target=self.cycle, args=(35,36,37)) 
-        self.encoder_thread.daemon = True  # Permite terminar el hilo al cerrar la app
-        self.running_status = True #Esta variable creo que no es necesaria
-        self.encoder_thread.start()
-       
        
        
        #---------------------------------------------------------------------------Methods--------------------------------------------------------------------------------------------
