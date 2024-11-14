@@ -266,7 +266,8 @@ class Encoder(Frame):
         
     def distance_counter_x(self):
         pass
-    def cycle (self, A, B, C): #Crear ciclos para x y z
+    def cycle (self, A, B, C, axis): #Crear ciclos para x y z
+        self.axis = axis
         gp.setup(A, gp.IN)
         gp.setup(B, gp.IN)
         gp.setup(C, gp.IN)
@@ -296,11 +297,21 @@ class Encoder(Frame):
         
     def update_ui(self):
         if self.cycle_status:
-            self.distance_lbl_encoder_1.config(text=f"{self.position}")
-            self.after(50, self.update_ui)
+            if self.axis == 'x':
+                self.distance_lbl_encoder_1.config(text=f"{self.position}")
+                self.after(50, self.update_ui)
+            if self.axis == 'y':
+                self.distance_lbl_encoder_2.config(text=f"{self.position}")
+                self.after(50, self.update_ui)
         
         
-           
+class encoder_cycle:
+    
+    def __init__(self,A,B,Z,axis):
+        self.A = A
+        self.B = B
+        self.Z = Z
+        self.axis = axis
         
 class App(Tk):
     
