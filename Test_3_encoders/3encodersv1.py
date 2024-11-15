@@ -40,16 +40,19 @@ class Encoder(Frame):
         self.lastA = None
         self.lastB = None
         self.lastC = None
-        self.positive_counter = 0
-        self.negative_counter = 0
+        app.positive_counter = 0
+        app.negative_counter = 0
         self.cycle_status = True
-        self.position = 0
-        self.absolute_counter = 0
+        app.position = 0
+        app.absolute_counter = 0
         self.encoder_start_mode = False
-        self.resolution = 1
-       
-        # Iniciar hilo para el encoder             
-        self.encoder_thread_x = threading.Thread(target=encoder_cycle.cycle, args=(35,36,37,'x'))          #Probablemente necesite usar multiprocessing, los threads no corren simultáneamente,
+        app.resolution = 1
+        
+        #self.running_status = True #Esta variable creo que no es necesaria
+        
+        # Iniciar hilo para el encoder
+        encoder_x = encoder_cycle()
+        self.encoder_thread_x = threading.Thread(target=encoder_x.cycle, args=(35,36,37,'x'))          #Probablemente necesite usar multiprocessing, los threads no corren simultáneamente,
         self.encoder_thread_x.daemon = True  # Permite terminar el hilo al cerrar la app       hay q hacer pruebas para ver cómo se mueven
         self.encoder_thread_x.start()
         
@@ -57,7 +60,7 @@ class Encoder(Frame):
         self.encoder_thread_y.daemon = True
         self.encoder_thread_y.start()"""
        
-        self.running_status = True #Esta variable creo que no es necesaria
+        
               
        #------------------------------------------------------------------------Settings----------------------------------------------------------------------------------------------
        
@@ -183,10 +186,10 @@ class Encoder(Frame):
        
     def update_encoder_settings(self):
         self.encoder_test_type = self.digital_selected.get()
-        self.updated_reference_mode = self.reference_mode.get()
+        app.updated_reference_mode = self.reference_mode.get()
         self.updated_limit_mode = self.limit_mode.get()
         self.show_hide_ammount()
-        self.resolution = self.resolution_values.get(self.combobox_resolution_chossen.get())
+        app.resolution = self.resolution_values.get(self.combobox_resolution_chossen.get())
         self.ref_mark_1_lbl['bg'] = 'grey'
         self.ref_mark_2_lbl['bg'] = 'grey'
         self.ref_mark_3_lbl['bg'] = 'grey'
@@ -231,7 +234,7 @@ class Encoder(Frame):
             self.distance_lbl_encoder_3.grid()
             
     def show_hide_ref_mark(self):
-        if self.updated_reference_mode:
+        if app.updated_reference_mode:
             if self.combobox_ammount_chossen.current() == 0:
                 self.ref_mark_1_lbl.grid()
                 self.ref_mark_2_lbl.grid_remove()
@@ -259,10 +262,10 @@ class Encoder(Frame):
         self.cycle_status = False
         
     def restart_btn_encoder(self):
-        self.positive_counter = 0
-        self.negative_counter = 0
-        self.position = 0
-        self.absolute_counter = 0
+        app.positive_counter = 0
+        app.negative_counter = 0
+        app.position = 0
+        app.absolute_counter = 0
         
     def distance_counter_x(self):
         pass
@@ -297,7 +300,7 @@ class Encoder(Frame):
         
     def update_ui(self):
         if self.cycle_status:
-            self.distance_lbl_encoder_1.config(text=f"{self.position}")
+            self.distance_lbl_encoder_1.config(text=f"{app.position}")
             """if self.axis == 'x':
                 self.distance_lbl_encoder_1.config(text=f"{self.position}")
                 
@@ -309,47 +312,60 @@ class Encoder(Frame):
         
 class encoder_cycle:
     
-    def __init__(self,A,B,Z,axis):
+    def __init__(self):
+        #self.axis = axis
+        self.negative_counter = 0
+        self.positive_counter = 0
+        self.lastA = None
+        self.lastB = None
+        self.lastC = None
+        
+        
+    def cycle (self,A,B,Z,axis):
         self.A = A
         self.B = B
         self.C = Z
         self.axis = axis
-        self.negative_counter = 0
-        self.positive_counter = 0
-        
-    def cycle (self):
         gp.setup(self.A, gp.IN)
         gp.setup(self.B, gp.IN)
         gp.setup(self.C, gp.IN)
-        while Encoder.running_status:
+        print(app.running_status)
+        while app.running_status:
             self.pinB = gp.input(self.B)
             self.pinA = gp.input(self.A)
-            if Encoder.updated_reference_mode:
+            if app.updated_reference_mode:
                 self.pinC = gp.input(self.C)
                 #Aqui mas o menos debe de ir mostrar y ocultar el cuadrito
                 if self.lastC != self.pinC:
                     if self.pinC == 1:
-                        Encoder.ref_mark_1_lbl['bg'] = 'green'
+                        Encoder(app).ref_mark_1_lbl['bg'] = 'green'
                     self.lastC = self.pinC
             
             if self.lastB != self.pinB or self.lastA != self.pinA:
                 if self.lastA == 0 and self.lastB == 0:
                     if self.pinA == 0 and self.pinB == 1:
-                        self.negative_counter += 1
+                        app.negative_counter += 1
                         #print("Negativo")
                     elif self.pinB == 0 and self.pinA == 1:
-                        self.positive_counter += 1
+                        app.positive_counter += 1
                         #print("Positivo")
             self.lastA = self.pinA
             self.lastB = self.pinB
-            self.absolute_counter = self.positive_counter - self.negative_counter
-            Encoder.position = self.absolute_counter/int(Encoder.resolution)
+            app.absolute_counter = app.positive_counter - app.negative_counter
+            app.position = app.absolute_counter/int(app.resolution)
         
 class App(Tk):
     
     def __init__(self):
         super().__init__()
         self.title("Encoder Test")
+        self.running_status = True
+        self.updated_reference_mode = False
+        self.resolution = 1
+        self.position = 0
+        self.absolute_counter = 0
+        self.positive_counter = 0
+        self.negative_counter = 0
         
     def on_closing(self):
         self.destroy()
