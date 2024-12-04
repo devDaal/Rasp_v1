@@ -15,19 +15,18 @@ class SensorTest(Frame):
         self.frame_title = Label(self.sensor_container, text='Sensor Test', fg='white',bg='blue',font=("Robot",20,"bold"))
         self.frame_title.grid()
         
-        self.sensor_selected = IntVar()
-        
         self.sensor_setings_container = LabelFrame(self.sensor_container, bg="#4f4f4f",width='200', pady = 20)
         self.sensor_setings_container.grid(row=1, pady=10, ipady=5,padx=30)
        
         self.quantity_sensors_lbl = Label(self.sensor_setings_container, text='How many sensors?', bg="#4f4f4f",font=("Robot", 16,"bold"))
         self.quantity_sensors_lbl.grid()
        
-        values = ["1","2","3","4","5","6","7","8","9"]
+        values = ["1","2","3","4","5","6"]#,"7","8","9"]
         
-        self.quantity_combo = Combobox(self.sensor_setings_container, font=("Robot", 18,"normal"), values = values)
-        self.quantity_combo.grid()
-       
+        self.quantity_combo = Combobox(self.sensor_setings_container, font=("Robot", 18,"normal"), values = values, width = 3, state = "readonly")
+        self.quantity_combo.set("6")
+        self.quantity_combo.grid(padx = 10, pady = 10)
+               
         self.selected_btn = Button(self.sensor_setings_container, text='Select Sensor(s)', bg='green',fg='White',font=("Robot", 16,"bold"), command=self.get_selected_sensor)
         self.selected_btn.grid()
         
@@ -43,6 +42,9 @@ class SensorTest(Frame):
         
         self.sensor_test_stop_btn = Button(self.sensor_test_container, text='STOP', bg='red', fg='white',font=("Robot",16,"bold"), width='6',command=self.stop_btn_sensor)
         self.sensor_test_stop_btn.grid(padx=(10,0))
+        
+        self.sensor_test_restart_btn = Button(self.sensor_test_container, text='RESTART', bg='orange', fg='white',font=("Robot",15,"bold"), width='6',command=self.restart_btn_sensor)
+        self.sensor_test_restart_btn.grid(padx=(10,0), pady=(10,0))
         
         self.pin_11_lbl = Label(self.sensor_test_container, text=' PIN 11', bg='gray', width=6, height=3,font=("Robot",12,"normal"))
         self.pin_11_lbl.grid(row=1,column=1,padx=(30,5),pady=5)
@@ -62,12 +64,12 @@ class SensorTest(Frame):
         self.pin_22_lbl = Label(self.sensor_test_container, text=' PIN 22', bg='gray', width=6, height=3,font=("Robot",12,"normal"))
         self.pin_22_lbl.grid(row=2,column=3,padx=5,pady=5)
         
-        self.sensor_lbls_dictionary = {self.pin_11_lbl : "1",
-                                       self.pin_13_lbl : "2",
-                                       self.pin_15_lbl : "3",
-                                       self.pin_16_lbl : "4",
-                                       self.pin_18_lbl : "5",
-                                       self.pin_22_lbl : "6"}
+        self.sensor_lbls = [self.pin_11_lbl,
+                               self.pin_13_lbl,
+                               self.pin_15_lbl,
+                               self.pin_16_lbl,
+                               self.pin_18_lbl,
+                               self.pin_22_lbl]
         
         # Configuración de los pines GPIO
         gp.setmode(gp.BOARD)
@@ -94,6 +96,10 @@ class SensorTest(Frame):
     def stop_btn_sensor(self):
         """Detiene la lectura de los pines."""
         self.start_mode = False
+        
+    def restart_btn_sensor(self):
+        for i in self.sensor_lbls:
+            i['bg'] = 'gray'
 
     def update_sensors(self):
         """Actualiza el estado de los sensores y cambia el color de los labels."""
@@ -113,30 +119,21 @@ class SensorTest(Frame):
             self.pin_18_lbl['bg'] = 'green' if self.pin_18 else 'gray'
             self.pin_22_lbl['bg'] = 'green' if self.pin_22 else 'gray'
             
-            # Llama de nuevo a update_sensors después de 10 ms
-            self.after(10, self.update_sensors)
+            # Llama de nuevo a update_sensors después de 100 ms
+            self.after(100, self.update_sensors)
 
     # Funcionalidad de botones
     def get_selected_sensor(self):
-        self.test_amount_sensor = int(self.sensor_selected.get())
+        self.test_amount_sensor = int(self.quantity_combo.get())
         self.show_hide_sensors_lbls()
         
     def show_hide_sensors_lbls(self):
-        for i in self.sensor_lbls_dictionary:
+        for i in self.sensor_lbls:
             i.grid_remove()
         
-        for self.test_amount_sensor in self.sensor_lbls_dictionary:
-            lbls_to_show = self.sensor_lbls_dictionary
-                                                
-        for i in lbls_to_show:
-            i.grid()                                        
-        
-                                                # crear una lista con los que sí están seleccionados y crear una
-                                                #con los no seleccionados para mostrar la 1er lista y ocultar la 2da
-            
-        #se puede hacer aqui un diccionario con los nombres de los labels para mostrar y relacionados con el número
-        #para iterar el diccionario y no poner 9 casos de elif
-        
+        for i in range(self.test_amount_sensor):
+            self.sensor_lbls[i].grid()
+              
         
         
 class App(Tk):

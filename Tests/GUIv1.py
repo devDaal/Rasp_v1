@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 from guiencoderv1 import Encoder
+from Sensortestv1 import SensorTest
 
 class Base():
     def __init__(self):
@@ -221,14 +222,7 @@ class Encoder1(Encoder):
         self.encoder_exit_btn.grid()
         
     def exit_btn (self):
-        if not self.stop_threads:
-            if messagebox.askokcancel(title="Warning", message="If you exit now you'll have to restart the app to use the encoder test again",icon = 'warning'):
-                app.show_frame(StartPage)
-                self.stop_threads = True
-            else:
-                pass
-        else:
-            app.show_frame(StartPage)
+        app.show_frame(StartPage)
        
             
 
@@ -325,57 +319,18 @@ class Jogbox(Frame):
        self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.encoder_exit_btn.grid()
        
-class Sensor(Frame):
+class Sensor(SensorTest):
     def __init__(self):
-       Frame.__init__(self) 
+       Frame.__init__(self)
+       SensorTest.__init__(self)
        
-       #--------------------------------------------------------------------------Frame & Title---------------------------------------------------------------------------------------
+       self.sensor_exit_btn = Button(self.sensor_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=self.exit_btn)
+       self.sensor_exit_btn.grid()
+        
+    def exit_btn (self):
+        app.show_frame(StartPage)
        
-       self.sensor_container= Frame(self,bg='gray',padx=400,pady=10)
-       self.sensor_container.pack(expand="True", fill='both')
        
-       self.sensor_label=Label(self.sensor_container, text="Sensors",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
-       self.sensor_label.grid(pady=5)
-       
-       #---------------------------------------------------------------------------Variables------------------------------------------------------------------------------------------
-       
-       self.sensor_selected = IntVar()
-       self.sensor_selected.set(1)
-       
-       #----------------------------------------------------------------------------Settings -----------------------------------------------------------------------------------------
-       
-       self.sensor_setings_container = LabelFrame(self.sensor_container, bg="#4f4f4f",width='200', height='200',fg="white", pady = 20)
-       self.sensor_setings_container.grid(row=1, pady=10, ipady=10)
-       
-       self.quantity_sensors_lbl = Label(self.sensor_setings_container, text='How many sensors?', bg="#4f4f4f",font=("Robot", 16,"bold"))
-       self.quantity_sensors_lbl.grid()
-       
-       #-----------------------------------------------------------
-       
-       values = {"1" : "1",
-                "2" : "2",
-                "3" : "3",
-                "4" : "4",
-                "5" : "5",
-                "6" : "6",
-                "7" : "7",
-                "8" : "8",
-                "9" : "9"}
-       
-       for (text, value) in values.items():
-            temp_radio = Radiobutton(self.sensor_setings_container,bg="#4f4f4f", text = text, font=("Robot", 18,"normal"), variable = self.sensor_selected,value = value)#,command=self.click_btn_radios)
-            temp_radio.grid()
-       
-       #-----------------------------------------------------------
-       
-       self.selected_btn = Button(self.sensor_setings_container, text='Select Sensor(s)', bg='green',fg='White',font=("Robot", 16,"bold"), command=self.get_selected_sensor)
-       self.selected_btn.grid()
-       
-       self.encoder_exit_btn = Button(self.sensor_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
-       self.encoder_exit_btn.grid()
-       
-    def get_selected_sensor(self):
-        self.test_amount_sensor = self.sensor_selected.get()
 
 if __name__ == "__main__":
     app = App()
