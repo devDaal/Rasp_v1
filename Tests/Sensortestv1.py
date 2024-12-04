@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import Combobox
 import RPi.GPIO as gp 
 
 class SensorTest(Frame):
@@ -22,19 +23,10 @@ class SensorTest(Frame):
         self.quantity_sensors_lbl = Label(self.sensor_setings_container, text='How many sensors?', bg="#4f4f4f",font=("Robot", 16,"bold"))
         self.quantity_sensors_lbl.grid()
        
-        values = {"1" : "1",
-                  "2" : "2",
-                  "3" : "3",
-                  "4" : "4",
-                  "5" : "5",
-                  "6" : "6",
-                  "7" : "7",
-                  "8" : "8",
-                  "9" : "9"}
+        values = ["1","2","3","4","5","6","7","8","9"]
         
-        for (text, value) in values.items():
-            temp_radio = Radiobutton(self.sensor_setings_container,bg="#4f4f4f", text = text, font=("Robot", 18,"normal"), variable = self.sensor_selected,value = value)
-            temp_radio.grid()
+        self.quantity_combo = Combobox(self.sensor_setings_container, font=("Robot", 18,"normal"), values = values)
+        self.quantity_combo.grid()
        
         self.selected_btn = Button(self.sensor_setings_container, text='Select Sensor(s)', bg='green',fg='White',font=("Robot", 16,"bold"), command=self.get_selected_sensor)
         self.selected_btn.grid()
@@ -126,12 +118,19 @@ class SensorTest(Frame):
 
     # Funcionalidad de botones
     def get_selected_sensor(self):
-        self.test_amount_sensor = self.sensor_selected.get()
+        self.test_amount_sensor = int(self.sensor_selected.get())
         self.show_hide_sensors_lbls()
         
     def show_hide_sensors_lbls(self):
+        for i in self.sensor_lbls_dictionary:
+            i.grid_remove()
+        
         for self.test_amount_sensor in self.sensor_lbls_dictionary:
-            self.sensor_lbls_dictionary.keys() #.grid
+            lbls_to_show = self.sensor_lbls_dictionary
+                                                
+        for i in lbls_to_show:
+            i.grid()                                        
+        
                                                 # crear una lista con los que sí están seleccionados y crear una
                                                 #con los no seleccionados para mostrar la 1er lista y ocultar la 2da
             
