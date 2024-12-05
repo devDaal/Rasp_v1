@@ -4,8 +4,8 @@ import RPi.GPIO as gp
 
 class SensorTest(Frame):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self,container):
+        super().__init__(container)
         self.grid()
         
         # Zona de Widgets de la interfaz
@@ -96,6 +96,7 @@ class SensorTest(Frame):
     def stop_btn_sensor(self):
         """Detiene la lectura de los pines."""
         self.start_mode = False
+#Agregar funcionalidad de que mande un aviso si se activa alguno no requerido??
         
     def restart_btn_sensor(self):
         for i in self.sensor_lbls:
@@ -124,17 +125,11 @@ class SensorTest(Frame):
 
     # Funcionalidad de botones
     def get_selected_sensor(self):
-        self.test_amount_sensor = int(self.quantity_combo.get())
-        self.show_hide_sensors_lbls()
-        
-    def show_hide_sensors_lbls(self):
         for i in self.sensor_lbls:
             i.grid_remove()
-        
-        for i in range(self.test_amount_sensor):
+        for i in range(int(self.quantity_combo.get())):
             self.sensor_lbls[i].grid()
-              
-        
+
         
 class App(Tk):
     def __init__(self):
