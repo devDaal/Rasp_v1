@@ -72,10 +72,10 @@ class App(Base,Tk):
         self.grid_columnconfigure(0, weight=1)
         self.port = None
         self.connect_status = 0
-        #Encoder()
         self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10)
         self.show_frame(StartPage)  # Frame object to show at the top screen
-        
+        self.geometry('800x800')
+        #self.attributes('-fullscreen',True)
         """self.photo_logo = PhotoImage(file= "icons\its-logo-short.png").subsample(10,10)
         self.iconphoto(True, self.photo_logo)   # Icon that shows on the left corner of the screen"""
 
@@ -122,7 +122,7 @@ class StartPage(Frame):
         #-------------------------------------------------------------------------------------Motors--------------------------------------------------------------------------------
         
         self.motor_frame = Frame(self.start_container, bg='gray',height='30', width='30')
-        self.motor_frame.grid(row=1, column=2, padx=(50,50), pady=(80,50))
+        self.motor_frame.grid(row=1, column=2)
         
         self.motor_photo = PhotoImage(file= "icons1/motor.png").subsample(21,21)
         self.motor_btn = Button(self.motor_frame, image=self.motor_photo,bg= 'gray',command=lambda: app.show_frame(Motor))
@@ -136,7 +136,7 @@ class StartPage(Frame):
         #-----------------------------------------------------------------------------------Encoders-------------------------------------------------------------------------------
         
         self.encoder_frame = Frame(self.start_container, bg='gray',height='30', width='30')
-        self.encoder_frame.grid(row=2, column=2, padx=(50,50), pady=(30,50))
+        self.encoder_frame.grid(row=2, column=2)
         
         self.encoder_photo = PhotoImage(file= "icons1/encoder2.png").subsample(4,4)
         self.encoder_btn = Button(self.encoder_frame, image=self.encoder_photo, bg= 'gray',command=lambda: app.show_frame(Encoder1))
@@ -149,7 +149,7 @@ class StartPage(Frame):
         #------------------------------------------------------------------------------------------Settings-------------------------------------------------------------------------
         
         self.settings_frame = Frame(self.start_container, bg='gray',height='30', width='30')
-        self.settings_frame.grid(row=1, column=1, padx=(50,50), pady=(80,50))
+        self.settings_frame.grid(row=1, column=1)
         
         self.settings_photo = PhotoImage(file= "icons1/Imagen2.png").subsample(6,6)
         self.settings_btn = Button(self.settings_frame,image=self.settings_photo, bg= 'gray',command=lambda: app.show_frame(Settings))
@@ -162,7 +162,7 @@ class StartPage(Frame):
         #--------------------------------------------------------------------------------------PH10 Tester---------------------------------------------------------------------------
         
         self.ph10_frame = Frame(self.start_container, bg='gray',height='30', width='30')
-        self.ph10_frame.grid(row=2, column=1, padx=(50,50), pady=(30,50))
+        self.ph10_frame.grid(row=2, column=1)
         
         self.ph10_photo = PhotoImage(file= "icons1/ph10.png").subsample(4,4)
         self.ph10_btn = Button(self.ph10_frame, bg= 'gray',image=self.ph10_photo,command=lambda: app.show_frame(PH10))
@@ -175,7 +175,7 @@ class StartPage(Frame):
         #----------------------------------------------------------------------------------------Sensors-----------------------------------------------------------------------------
         
         self.sensor_frame = Frame(self.start_container, bg='gray',height='30', width='30')
-        self.sensor_frame.grid(row=1, column=0, padx=(50,50), pady=(80,50))
+        self.sensor_frame.grid(row=1, column=0)
         
         self.sensor_photo = PhotoImage(file= "icons1/sensor.png").subsample(22,22)
         self.sensor_btn = Button(self.sensor_frame, bg= 'gray', image=self.sensor_photo,command=lambda: app.show_frame(Sensor))
@@ -189,7 +189,7 @@ class StartPage(Frame):
         
     
         self.jogbox_frame = Frame(self.start_container, bg='gray',height='30', width='30')
-        self.jogbox_frame.grid(row=2, column=0, padx=(50,50), pady=(30,50))
+        self.jogbox_frame.grid(row=2, column=0)
         
         self.jogbox_photo = PhotoImage(file= "icons1/jogbox.png").subsample(6,6)
         self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command=lambda: app.show_frame(Jogbox))
@@ -219,7 +219,7 @@ class Encoder1(Encoder):
         Frame.__init__(self)
         Encoder.__init__(self)
         self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=self.exit_btn)
-        self.encoder_exit_btn.grid()
+        self.encoder_exit_btn.grid(column=1, row=0)
         
     def exit_btn (self):
         app.show_frame(StartPage)
@@ -230,7 +230,7 @@ class Settings(Frame):
     def __init__(self):
        Frame.__init__(self) 
        
-       self.settings_container= Frame(self,bg='gray',padx=400,pady=10)
+       self.settings_container= Frame(self,bg='gray',padx=40,pady=10)
        self.settings_container.pack(expand="True", fill='both')
        
        self.settings_label=Label(self.settings_container, text="Settings",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
@@ -297,7 +297,7 @@ class PH10(Frame):
     def __init__(self):
        Frame.__init__(self) 
        
-       self.encoder_container= Frame(self,bg='gray',padx=400,pady=10)
+       self.encoder_container= Frame(self,bg='gray',padx=40,pady=10)
        self.encoder_container.pack(expand="True", fill='both')
        
        self.encoder_label=Label(self.encoder_container, text="PH10 Tester",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
@@ -310,7 +310,7 @@ class Jogbox(Frame):
     def __init__(self):
        Frame.__init__(self) 
        
-       self.encoder_container= Frame(self,bg='gray',padx=400,pady=10)
+       self.encoder_container= Frame(self,bg='gray',padx=40,pady=10)
        self.encoder_container.pack(expand="True", fill='both')
        
        self.encoder_label=Label(self.encoder_container, text="JogBox Tester",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))

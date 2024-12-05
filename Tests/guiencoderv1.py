@@ -10,11 +10,11 @@ class Encoder(Frame):
        self.grid()
        #-------------------------------------------------------------------Frame & Title----------------------------------------------------------------------------------------------
        
-       self.encoder_container= Frame(self,bg='gray',padx=100,pady=10)
+       self.encoder_container= Frame(self,bg='gray',padx=10,pady=10)
        self.encoder_container.pack(expand="True", fill='both')
        
-       self.encoder_label=Label(self.encoder_container, text="Encoders",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
-       self.encoder_label.grid(pady=5)
+       self.encoder_label=Label(self.encoder_container, text="Encoders",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 20,"bold"))
+       self.encoder_label.grid(pady=1)
     
        #-------------------------------------------------------------------------Variables--------------------------------------------------------------------------------------------
        
@@ -60,7 +60,7 @@ class Encoder(Frame):
        #--------------------------------------------------------------------------
        
        self.digital_encoder_lbl = Label(self.encoder_setings_container, text='Encoder Type:', bg="#4f4f4f",font=("Robot", 16,"bold"))
-       self.digital_encoder_lbl.grid(pady=(10,0))
+       self.digital_encoder_lbl.grid(pady=(4,0))
        
        values = {"Analog Encoder" : "1",
                 "Digital Encoder" : "2"}
@@ -72,12 +72,12 @@ class Encoder(Frame):
        #--------------------------------------------------------------------------
        
        self.reference_chk = Checkbutton(self.encoder_setings_container, bg = "#4f4f4f", text = "Reference Mark", font=("Robot", 12), onvalue=True, offvalue=False, variable = self.reference_mode)
-       self.reference_chk.grid(pady=(10,0))  
+       self.reference_chk.grid(pady=(4,0))  
        
        #--------------------------------------------------------------------------
        
        self.limit_chk = Checkbutton(self.encoder_setings_container, bg = "#4f4f4f", text = "Limit", font=("Robot", 12), onvalue=1, offvalue=0, variable = self.limit_mode)
-       self.limit_chk.grid(pady=10)
+       self.limit_chk.grid(pady=3)
        
        #--------------------------------------------------------------------------
        

@@ -4,15 +4,15 @@ import RPi.GPIO as gp
 
 class SensorTest(Frame):
     
-    def __init__(self, container):
-        super().__init__(container)
+    def __init__(self):
+        super().__init__()
         self.grid()
         
         # Zona de Widgets de la interfaz
-        self.sensor_container = Frame(self,bg='blue')
+        self.sensor_container = Frame(self,bg='gray')
         self.sensor_container.grid()
         
-        self.frame_title = Label(self.sensor_container, text='Sensor Test', fg='white',bg='blue',font=("Robot",20,"bold"))
+        self.frame_title = Label(self.sensor_container, text='Sensor Test', fg='white',bg='gray',font=("Robot",20,"bold"))
         self.frame_title.grid()
         
         self.sensor_setings_container = LabelFrame(self.sensor_container, bg="#4f4f4f",width='200', pady = 20)
