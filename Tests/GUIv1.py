@@ -74,7 +74,7 @@ class App(Base,Tk):
         self.connect_status = 0
         self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10)
         self.show_frame(StartPage)  # Frame object to show at the top screen
-        self.geometry('800x800')
+        self.geometry('800x412+0+0')
         #self.attributes('-fullscreen',True)
         """self.photo_logo = PhotoImage(file= "icons\its-logo-short.png").subsample(10,10)
         self.iconphoto(True, self.photo_logo)   # Icon that shows on the left corner of the screen"""

@@ -4,8 +4,8 @@ import RPi.GPIO as gp
 
 class SensorTest(Frame):
     
-    def __init__(self,container):
-        super().__init__(container)
+    def __init__(self):
+        super().__init__()
         self.grid()
         
         # Zona de Widgets de la interfaz
