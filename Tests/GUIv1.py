@@ -117,7 +117,7 @@ class StartPage(Frame):
         
         self.easter_egg= Button(self.start_container,borderwidth=0,takefocus="off",bg="gray",activebackground='gray',relief="flat",padx=50,pady=40,
                         command=lambda:self.__easter_egg_deploy(),cursor='watch')
-        self.easter_egg.grid(row=0,column=2,padx=(10,0)) 
+        self.easter_egg.grid(row=0,column=1,padx=(10,0)) 
         
         #-------------------------------------------------------------------------------------Motors--------------------------------------------------------------------------------
         
@@ -149,7 +149,7 @@ class StartPage(Frame):
         #------------------------------------------------------------------------------------------Settings-------------------------------------------------------------------------
         
         self.settings_frame = Frame(self.start_container, bg='gray',height='30', width='30')
-        self.settings_frame.grid(row=1, column=1)
+        self.settings_frame.grid(row=1, column=1, padx = 80)
         
         self.settings_photo = PhotoImage(file= "icons1/Imagen2.png").subsample(6,6)
         self.settings_btn = Button(self.settings_frame,image=self.settings_photo, bg= 'gray',command=lambda: app.show_frame(Settings))
