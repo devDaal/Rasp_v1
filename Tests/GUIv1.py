@@ -115,9 +115,10 @@ class StartPage(Frame):
         self.start_container_title = Frame(self.start_container,bg="gray")
         self.start_container_title.grid(row=0,column=1)
         
+        self.logo_photo = PhotoImage(file= "icons1/its-logo.png").subsample(3,3)
         self.easter_egg= Button(self.start_container,borderwidth=0,takefocus="off",bg="gray",activebackground='gray',relief="flat",padx=50,pady=40,
-                        command=lambda:self.__easter_egg_deploy(),cursor='watch')
-        self.easter_egg.grid(row=0,column=1,padx=(10,0)) 
+                        command=lambda:self.__easter_egg_deploy(),image = self.logo_photo)
+        self.easter_egg.grid(row=0,column=1,pady=(5,20)) 
         
         #-------------------------------------------------------------------------------------Motors--------------------------------------------------------------------------------
         
