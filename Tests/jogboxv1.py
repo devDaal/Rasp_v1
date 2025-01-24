@@ -5,7 +5,7 @@ import re
 from tkinter import Tk, Label, Frame, LabelFrame, Button, PhotoImage,Message, messagebox
 from tkinter.ttk import Progressbar
 
-class Base():
+class BaseJogBox():
     def __init__(self):
 
         self.frames = {}    # Dictionary to hold the frames that we are going to show
@@ -32,7 +32,7 @@ class Base():
         self.current_frame = frame  # Set the frame as our current frame variable
         frame.tkraise() # Raise the frame to the top
 
-class Functionality():
+class FunctionalityJogBox():
     """
         A class that contains most of the function pertaining to
         the testing of the jogbox
@@ -606,7 +606,7 @@ class Functionality():
 
         # Reset top frames
         self.parent.show_frame(ConnectionTest)
-        self.app.show_frame(StartPage)
+        self.app.show_frame(StartPageJogBox)
 
         # Close all tests
         if (self.test_status == 1): self.stop_test()
@@ -634,7 +634,7 @@ class Functionality():
             
         """
 
-        self.parent.show_frame(StartPage)
+        self.parent.show_frame(StartPageJogBox)
 
         # If connection is running then close it 
         if (self.connect_status == 1):
@@ -682,10 +682,10 @@ class Functionality():
         mapped_number =(number_to_map-original_lower)/(original_upper-original_lower)*(map_upper-map_lower)+map_lower
         return mapped_number
 
-class App(Base,Tk):
+class App(BaseJogBox,Tk):
     """
         A class that inherits from the main tkinter class
-        and some functions from the Base class
+        and some functions from the BaseJogBox class
         It is the top object that holds the whole interface
         ...
 
@@ -706,7 +706,7 @@ class App(Base,Tk):
             **kwargs: Arbitrary keyword arguments.
 
         """
-        Base.__init__(self)
+        BaseJogBox.__init__(self)
         Tk.__init__(self, *args, **kwargs) # Inherit from the main tkinter class
         
         self.grid_rowconfigure(0, weight=1)
@@ -721,11 +721,11 @@ class App(Base,Tk):
         #self.photo_logo = PhotoImage(file= "icons\its-logo-short.png").subsample(10,10)
         #self.iconphoto(True, self.photo_logo)   # Icon that shows on the left corner of the screen
 
-        self.load_frames(StartPage, JogboxMonitorMode, GuidedCheck)
+        self.load_frames(StartPageJogBox, JogboxMonitorMode, GuidedCheck)
 
-        self.show_frame(StartPage)  # Frame object to show at the top screen
+        self.show_frame(StartPageJogBox)  # Frame object to show at the top screen
 
-class StartPage(Frame):
+class StartPageJogBox(Frame):
     """
         A class that holds the start - main page of the interface
         It inherits from the Frame class of tkinter
@@ -734,7 +734,7 @@ class StartPage(Frame):
         Attributes
         ----------
         parent : tk class 
-            object that is to hold the StartPage object
+            object that is to hold the StartPageJogBox object
         
         Methods
         -------
@@ -746,7 +746,7 @@ class StartPage(Frame):
             Parameters
             ----------
             parent : tk class 
-                object that is to hold the StartPage object
+                object that is to hold the StartPageJogBox object
         """
         
         Frame.__init__(self, parent)
@@ -809,7 +809,7 @@ class StartPage(Frame):
             self.counter_easter = 0
             messagebox.showinfo("Developer","System developed by Alwurts")
           
-class ConnectionTest(Frame, Functionality):
+class ConnectionTest(Frame, FunctionalityJogBox):
     """
         A class that holds the connection test to the jogbox.
         It is to be run inside the guided check class.
@@ -830,13 +830,13 @@ class ConnectionTest(Frame, Functionality):
             Parameters
             ----------
             parent : tk class 
-                object that is to hold the StartPage object
+                object that is to hold the StartPageJogBox object
             app : tk frame class 
                 Main / Top Level class of the interface
         """
         
         Frame.__init__(self, parent,bg="gray")
-        Functionality.__init__(self)
+        FunctionalityJogBox.__init__(self)
 
         self.parent = parent
 
@@ -881,12 +881,12 @@ class ConnectionTest(Frame, Functionality):
                         command = lambda: self.exit_guided_check())
         self.btn_exit.grid(row=1,column=0,pady=(20,0))
 
-class ButtonsTest(Frame,Functionality):
+class ButtonsTest(Frame,FunctionalityJogBox):
     """
         A class that holds the button test of the jogbox.
         It is to be run inside the guided check class.
         It inherits from the Frame class of tkinter
-        and functionality class.
+        and FunctionalityJogBox class.
         ...
 
         Attributes
@@ -908,12 +908,12 @@ class ButtonsTest(Frame,Functionality):
             Parameters
             ----------
             parent : tk class 
-                object that is to hold the StartPage object
+                object that is to hold the StartPageJogBox object
   
         """
     
         Frame.__init__(self, parent,bg="gray")
-        Functionality.__init__(self)
+        FunctionalityJogBox.__init__(self)
 
         self.parent = parent
 
@@ -1101,12 +1101,12 @@ class ButtonsTest(Frame,Functionality):
             }
         #print(self.test_results)
 
-class FeedrateTest(Frame, Functionality):
+class FeedrateTest(Frame, FunctionalityJogBox):
     """
         A class that holds the feedrate test of the jogbox.
         It is to be run inside the guided check class.
         It inherits from the Frame class of tkinter
-        and functionality class.
+        and FunctionalityJogBox class.
         ...
 
         Attributes
@@ -1127,12 +1127,12 @@ class FeedrateTest(Frame, Functionality):
             Parameters
             ----------
             parent : tk class 
-                object that is to hold the StartPage object
+                object that is to hold the StartPageJogBox object
 
         """
         
         Frame.__init__(self, parent,bg="gray")
-        Functionality.__init__(self)
+        FunctionalityJogBox.__init__(self)
 
         self.parent = parent
 
@@ -1249,12 +1249,12 @@ class FeedrateTest(Frame, Functionality):
             "100": 0
             }
 
-class JoystickTest(Frame,Functionality):
+class JoystickTest(Frame,FunctionalityJogBox):
     """
         A class that holds the joystick test of the jogbox.
         It is to be run inside the guided check class.
         It inherits from the Frame class of tkinter
-        and functionality class.
+        and FunctionalityJogBox class.
         ...
 
         Attributes
@@ -1276,12 +1276,12 @@ class JoystickTest(Frame,Functionality):
             Parameters
             ----------
             parent : tk class 
-                object that is to hold the StartPage object
+                object that is to hold the StartPageJogBox object
         
         """
         
         Frame.__init__(self, parent,bg="gray")
-        Functionality.__init__(self)
+        FunctionalityJogBox.__init__(self)
 
         self.parent = parent
 
@@ -1447,12 +1447,12 @@ class JoystickTest(Frame,Functionality):
                 "90": 0}
         }
 
-class LedTest(Frame,Functionality):
+class LedTest(Frame,FunctionalityJogBox):
     """
         A class that holds the led test of the jogbox.
         It is to be run inside the guided check class.
         It inherits from the Frame class of tkinter 
-        and functionality class.
+        and FunctionalityJogBox class.
         ...
 
         Attributes
@@ -1473,11 +1473,11 @@ class LedTest(Frame,Functionality):
             Parameters
             ----------
             parent : tk class 
-                object that is to hold the StartPage object
+                object that is to hold the StartPageJogBox object
         """
     
         Frame.__init__(self, parent,bg="gray")
-        Functionality.__init__(self)
+        FunctionalityJogBox.__init__(self)
 
         self.parent = parent
 
@@ -1665,7 +1665,7 @@ class LedTest(Frame,Functionality):
             "play_pause": 0
             }
 
-class TestResults(Frame, Functionality):
+class TestResults(Frame, FunctionalityJogBox):
     """
         A class that holds the test results interface of the jogbox.
         It is to be run inside the guided check class.
@@ -1690,11 +1690,11 @@ class TestResults(Frame, Functionality):
             Parameters
             ----------
             parent : tk class 
-                object that is to hold the StartPage object    
+                object that is to hold the StartPageJogBox object    
         """
         
         Frame.__init__(self, parent,bg="gray")
-        Functionality.__init__(self)
+        FunctionalityJogBox.__init__(self)
 
         self.parent = parent
 
@@ -1785,11 +1785,11 @@ class TestResults(Frame, Functionality):
         self.container_jogbox_btn.fail_all()
         self.container_jogbox_led.press_all()
 
-class GuidedCheck(Frame, Base):
+class GuidedCheck(Frame, BaseJogBox):
     """
         A class that holds guided check interface of the jogbox.
         It is to be run inside the main page, and holds child tests objects.
-        It inherits from the Frame class of tkinter and the Base class.
+        It inherits from the Frame class of tkinter and the BaseJogBox class.
         ...
 
         Attributes
@@ -1811,7 +1811,7 @@ class GuidedCheck(Frame, Base):
         """
         
         Frame.__init__(self, parent,bg="gray")
-        Base.__init__(self)
+        BaseJogBox.__init__(self)
 
         self.parent = parent
 
@@ -1819,11 +1819,11 @@ class GuidedCheck(Frame, Base):
 
         self.show_frame(ConnectionTest)
             
-class JogboxMonitorMode(Frame, Functionality):
+class JogboxMonitorMode(Frame, FunctionalityJogBox):
     """
         A class that holds the monitor mode of the app.
         It is to be run inside the main page.
-        It inherits from the Frame class of tkinter and the Functionality class.
+        It inherits from the Frame class of tkinter and the FunctionalityJogBox class.
         ...
 
         Attributes
@@ -1846,7 +1846,7 @@ class JogboxMonitorMode(Frame, Functionality):
         
         Frame.__init__(self, parent,bg="gray")
 
-        Functionality.__init__(self)
+        FunctionalityJogBox.__init__(self)
 
         self.parent = parent
 

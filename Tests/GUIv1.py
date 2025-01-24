@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from guiencoderv1 import Encoder
 from Sensortestv1 import SensorTest
+from jogboxv1 import *
 
 class Base():
     def __init__(self):
@@ -307,17 +308,12 @@ class PH10(Frame):
        self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.encoder_exit_btn.grid()
        
-class Jogbox(Frame):
+class Jogbox(Frame,StartPageJogBox):
     def __init__(self):
        Frame.__init__(self) 
+       StartPageJogBox.__init__(self)
        
-       self.encoder_container= Frame(self,bg='gray',padx=40,pady=10)
-       self.encoder_container.pack(expand="True", fill='both')
-       
-       self.encoder_label=Label(self.encoder_container, text="JogBox Tester",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
-       self.encoder_label.grid(pady=5)
-       
-       self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
+       self.encoder_exit_btn = Button(self.container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.encoder_exit_btn.grid()
        
 class Sensor(SensorTest):
