@@ -3,7 +3,6 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from guiencoderv1 import Encoder
 from Sensortestv1 import SensorTest
-from jogboxv1 import StartPageJogBox
 
 class Base():
     def __init__(self):
@@ -73,7 +72,7 @@ class App(Base,Tk):
         self.grid_columnconfigure(0, weight=1)
         self.port = None
         self.connect_status = 0
-        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10, StartPageJogBox)
+        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10)
         self.show_frame(StartPage)  # Frame object to show at the top screen
         self.geometry('800x412+0+0')
         #self.attributes('-fullscreen',True)
@@ -299,19 +298,21 @@ class PH10(Frame):
     def __init__(self):
        Frame.__init__(self) 
        
-       self.encoder_container= Frame(self,bg='gray',padx=40,pady=10)
-       self.encoder_container.pack(expand="True", fill='both')
+       self.PH10_container= Frame(self,bg='gray',padx=40,pady=10)
+       self.PH10_container.pack(expand="True", fill='both')
        
-       self.encoder_label=Label(self.encoder_container, text="PH10 Tester",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
-       self.encoder_label.grid(pady=5)
+       self.PH10_label=Label(self.PH10_container, text="PH10 Tester",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 30,"bold"))
+       self.PH10_label.grid(pady=5)
        
-       self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
-       self.encoder_exit_btn.grid()
+       self.PH10_exit_btn = Button(self.PH10_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
+       self.PH10_exit_btn.grid()
        
-class Jogbox(StartPageJogBox):
+class Jogbox(Frame):
     def __init__(self): 
-       StartPageJogBox.__init__(self)
+       Frame.__init__(self)
        
+       self.container = Frame(self,bg = 'gray', padx = 40, pady=10)
+       self.container.pack(expand="True", fill='both')
        self.jogbox_exit_btn = Button(self.container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.jogbox_exit_btn.grid()
        
