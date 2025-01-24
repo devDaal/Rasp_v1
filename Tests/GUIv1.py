@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from guiencoderv1 import Encoder
 from Sensortestv1 import SensorTest
+from jogboxv1 import *
 
 class Base():
     def __init__(self):
@@ -72,7 +73,7 @@ class App(Base,Tk):
         self.grid_columnconfigure(0, weight=1)
         self.port = None
         self.connect_status = 0
-        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10)
+        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10, AppJogBox)
         self.show_frame(StartPage)  # Frame object to show at the top screen
         self.geometry('800x412+0+0')
         #self.attributes('-fullscreen',True)

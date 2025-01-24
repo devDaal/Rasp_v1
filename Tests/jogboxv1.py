@@ -682,7 +682,7 @@ class FunctionalityJogBox():
         mapped_number =(number_to_map-original_lower)/(original_upper-original_lower)*(map_upper-map_lower)+map_lower
         return mapped_number
 
-class App(BaseJogBox,Tk):
+class AppJogBox(BaseJogBox,Frame):
     """
         A class that inherits from the main tkinter class
         and some functions from the BaseJogBox class
@@ -707,7 +707,7 @@ class App(BaseJogBox,Tk):
 
         """
         BaseJogBox.__init__(self)
-        Tk.__init__(self, *args, **kwargs) # Inherit from the main tkinter class
+        Frame.__init__(self, *args, **kwargs) # Inherit from the main tkinter class
         
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
@@ -715,7 +715,7 @@ class App(BaseJogBox,Tk):
         self.call('tk','scaling', scale )
         
         #self.attributes("-fullscreen", True) # For final build this should be ativated
-        self.geometry('800x412+0+0') # Size of screen
+        #self.geometry('800x412+0+0') # Size of screen
         
         
         #self.photo_logo = PhotoImage(file= "icons\its-logo-short.png").subsample(10,10)
