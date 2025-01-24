@@ -2410,4 +2410,5 @@ class JogboxButtonModelButton(Button):
 
 if __name__ == "__main__":
     app = App(scale = 0.58)
+    StartPageJogBox(app).grid
     app.mainloop()

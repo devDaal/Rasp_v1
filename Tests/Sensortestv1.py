@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.ttk import Combobox
-import RPi.GPIO as gp 
+#import RPi.GPIO as gp 
 
 class SensorTest(Frame):
     
@@ -149,5 +149,5 @@ class App(Tk):
 
 if __name__ == "__main__":
     app = App()
-    SensorTest(app).grid()    
+    SensorTest().grid()    
     app.mainloop()

@@ -1,7 +1,7 @@
 import threading
 from tkinter import *
 from tkinter.ttk import Combobox
-import RPi.GPIO as gp
+#import RPi.GPIO as gp
 import time
 
 class Encoder(Frame):
@@ -323,6 +323,6 @@ class App(Tk):
 
 if __name__ == "__main__":
     app = App()
-    Encoder(app).grid()
+    Encoder().grid()
     app.protocol("WM_DELETE_WINDOW", app.on_closing)
     app.mainloop()

@@ -3,7 +3,7 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from guiencoderv1 import Encoder
 from Sensortestv1 import SensorTest
-from jogboxv1 import *
+from jogboxv1 import StartPageJogBox
 
 class Base():
     def __init__(self):
@@ -73,7 +73,7 @@ class App(Base,Tk):
         self.grid_columnconfigure(0, weight=1)
         self.port = None
         self.connect_status = 0
-        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10)
+        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10, StartPageJogBox)
         self.show_frame(StartPage)  # Frame object to show at the top screen
         self.geometry('800x412+0+0')
         #self.attributes('-fullscreen',True)
@@ -308,13 +308,12 @@ class PH10(Frame):
        self.encoder_exit_btn = Button(self.encoder_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.encoder_exit_btn.grid()
        
-class Jogbox(Frame,StartPageJogBox):
-    def __init__(self):
-       Frame.__init__(self) 
+class Jogbox(StartPageJogBox):
+    def __init__(self,parent): 
        StartPageJogBox.__init__(self)
        
-       self.encoder_exit_btn = Button(self.container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
-       self.encoder_exit_btn.grid()
+       self.jogbox_exit_btn = Button(self.container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
+       self.jogbox_exit_btn.grid()
        
 class Sensor(SensorTest):
     def __init__(self):
@@ -331,4 +330,5 @@ class Sensor(SensorTest):
 
 if __name__ == "__main__":
     app = App()
+    App().grid
     app.mainloop()
