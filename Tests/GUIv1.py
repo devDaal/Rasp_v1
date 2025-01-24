@@ -309,7 +309,7 @@ class PH10(Frame):
        self.encoder_exit_btn.grid()
        
 class Jogbox(StartPageJogBox):
-    def __init__(self,parent): 
+    def __init__(self): 
        StartPageJogBox.__init__(self)
        
        self.jogbox_exit_btn = Button(self.container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
