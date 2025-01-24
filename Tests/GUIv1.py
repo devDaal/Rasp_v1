@@ -308,12 +308,13 @@ class PH10(Frame):
        self.PH10_exit_btn = Button(self.PH10_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.PH10_exit_btn.grid()
        
-class Jogbox(Frame):
+class Jogbox(AppJogBox):
     def __init__(self): 
        Frame.__init__(self)
+       AppJogBox.__init__(self)
        
-       self.container = Frame(self,bg = 'gray', padx = 40, pady=10)
-       self.container.pack(expand="True", fill='both')
+       #self.container = Frame(self,bg = 'gray', padx = 40, pady=10)
+       #self.container.pack(expand="True", fill='both')
        self.jogbox_exit_btn = Button(self.container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.jogbox_exit_btn.grid()
        
