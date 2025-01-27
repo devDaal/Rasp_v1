@@ -698,7 +698,7 @@ class AppJogBox(BaseJogBox,Frame):
         None
     """
 
-    def __init__(self,root, *args, scale = 1.0, **kwargs):
+    def __init__(self,root, *args, **kwargs):
         """ 
             Parameters
             ---------
@@ -712,8 +712,8 @@ class AppJogBox(BaseJogBox,Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         #self.title("Jogbox Tester")
-        self.root = root
-        self.root.call('tk','scaling', scale )
+        '''self.root = root
+        self.root.call('tk','scaling', scale )'''
         
         #self.attributes("-fullscreen", True) # For final build this should be ativated
         #self.geometry('800x412+0+0') # Size of screen
@@ -755,39 +755,39 @@ class StartPageJogBox(Frame):
         self.counter_easter = 0     
 
         self.container = Frame(self,bg="gray")
-        self.container.pack()
+        self.container.grid(sticky='nsew')
 
         self.container_title = Frame(self.container,bg="gray")
         self.container_title.grid(row=0,column=0)
 
-        self.photo_logo = PhotoImage(file= "icons/its-logo.png").subsample(3,3)
-        self.lbl_logo = Label(self.container_title,image=self.photo_logo, bg = "gray", fg = "black", font = ("Robot",20,"bold"))
+        self.photo_logo = PhotoImage(file= "icons/its-logo.png").subsample(4,4)
+        self.lbl_logo = Label(self.container_title,image=self.photo_logo, bg = "gray", fg = "black", font = ("Robot",12,"bold"))
         self.lbl_logo.image = self.photo_logo
-        self.lbl_logo.grid(row=0,column=0,padx=(310,122),pady=(10,0))
+        self.lbl_logo.grid(row=0,column=0,padx=(120,120),pady=(10,0))
 
         
         self.easter_egg= Button(self.container_title,borderwidth=0,takefocus="off",bg="gray",activebackground='gray',relief="flat",padx=50,pady=40,
                         command=lambda:self.__easter_egg_deploy()) # Assign image to label obj
-        self.easter_egg.grid(row=0,column=1,padx=(0,100)) 
+        self.easter_egg.grid(row=0,column=1,padx=(0,10)) 
 
-        Label(self.container, text="JOGBOX TESTER",borderwidth=2,bg="gray",fg="white",font=("Robot", 45,"bold")).grid(row=1,column=0,pady=(0,10))
+        Label(self.container, text="JOGBOX TESTER",borderwidth=2,bg="gray",fg="white",font=("Robot", 16,"bold")).grid(row=1,column=0,pady=(0,10), padx=(0,100))
 
         help_text = """Please select an option: \n
                         Guided Check: It will take you step by step through the process of checking the jogbox. \n
                         Check All: It will show you a screen where you can see all the parameters from the jogbox at once."""
-        Message(self.container, text=help_text,borderwidth=2,bg="gray",fg="white",font=("Robot", 18,"normal"),width=1300, justify='center').grid(row=2,column=0)
+        Message(self.container, text=help_text,borderwidth=2,bg="gray",fg="white",font=("Robot", 10,"normal"),width=1300, justify='center').grid(row=2,column=0, padx = (0,100))
 
-        self.container_btn = LabelFrame(self.container,bg="#4f4f4f",fg="white",padx=100,pady=5)
+        self.container_btn = LabelFrame(self.container,bg="#4f4f4f",fg="white",padx=110,pady=5)
         self.container_btn.grid(row=3,column=0,pady=10)
 
-        Label(self.container_btn, text="GUIDED CHECK",borderwidth=2,bg="#4f4f4f",fg="white",font=("Robot", 20,"bold")).grid(row=0,column=0,pady=(10,0),padx=20)
-        Label(self.container_btn, text="MONITOR MODE",borderwidth=2,bg="#4f4f4f",fg="white",font=("Robot", 20,"bold")).grid(row=0,column=1,pady=(10,0),padx=20)
+        Label(self.container_btn, text="GUIDED CHECK",borderwidth=2,bg="#4f4f4f",fg="white",font=("Robot", 12,"bold")).grid(row=0,column=0,pady=(10,0),padx=20)
+        Label(self.container_btn, text="MONITOR MODE",borderwidth=2,bg="#4f4f4f",fg="white",font=("Robot", 12,"bold")).grid(row=0,column=1,pady=(10,0),padx=20)
 
         self.photo_123 = PhotoImage(file= "icons/ico_123.png").subsample(3,3)
         self.btn_guided_check = Button(self.container_btn,image=self.photo_123, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
                                 command=lambda: parent.show_frame(GuidedCheck))
         self.btn_guided_check.image = self.photo_123
-        self.btn_guided_check.grid(row=1,column=0,pady=(10,20),padx=10)
+        self.btn_guided_check.grid(row=1,column=0,pady=(10,10),padx=10)
 
         self.photo_monitor = PhotoImage(file= "icons/ico_monitor.png").subsample(3,3)
         self.btn_monitor_mode = Button(self.container_btn,image=self.photo_monitor, bg = "#383838", fg = "black", font =  ("Robot",20,"bold"),
@@ -843,44 +843,44 @@ class ConnectionTest(Frame, FunctionalityJogBox):
 
         self.app = parent.parent # Top level app
 
-        Label(self, text="STEP 1: CONNECTION TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 24,"bold")).grid(row=0,column=0,columnspan=2,pady=(5,5),padx=(10,0))
+        Label(self, text="STEP 1: CONNECTION TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 12,"bold")).grid(row=0,column=0,columnspan=2,pady=(5,0),padx=(10,0))
 
-        self.container = LabelFrame(self,bg="#4f4f4f",padx=50,pady=10)
+        self.container = LabelFrame(self,bg="#4f4f4f",padx=50,pady=5)
         self.container.grid(row=1,column=0,padx=(20,10),pady=(0,0))
 
-        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 20,"bold")).grid(row=0,column=0,pady=(10,10),padx=5)
+        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 12,"bold")).grid(row=0,column=0,pady=(5,5),padx=5)
         
         help_text = """This step of the test takes care of assessing the connection between the tester and the jogbox. \r
         If this step fails or is not completed successfully the other steps can't be performed. \n
         1. Make sure the jogbox is properly connected. \n
         2. Click the button on the right "Connect Serial". \n
         3. If the connection is successful the "I/O" indicator will turn green, otherwise, a popup will show the error encountered."""
-        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 19,"normal"),width=250, justify='left').grid(row=1,column=0,padx=(5,5),pady=(0,0))
+        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 10,"normal"),width=250, justify='left').grid(row=1,column=0,padx=(5,5),pady=(0,0))
         
         self.container_serial_connect = Frame(self.container,bg="#4f4f4f",padx=5,pady=20)
         self.container_serial_connect.grid(row=0,column=1,rowspan=2,padx=(5,0),pady=(0,10))
 
-        self.btn_connect_serial = Button(self.container_serial_connect, text = "CONNECT SERIAL", bg = "#383838", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=5,
+        self.btn_connect_serial = Button(self.container_serial_connect, text = "CONNECT SERIAL", bg = "#383838", fg = "white", font = ("Robot",8,"bold"),pady=10,padx=5,
                                     command = lambda: self.connect_serial())
         self.btn_connect_serial.grid(row = 0,column = 0,padx=10)
 
-        self.lbl_serial_status = Label(self.container_serial_connect, text = "I/0",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",30,"bold"),padx=10,pady=10)
+        self.lbl_serial_status = Label(self.container_serial_connect, text = "I/0",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",14,"bold"),padx=10,pady=10)
         self.lbl_serial_status.grid(row = 0,column = 1,padx=10)
 
         parent.lbl_connection_status = self.lbl_serial_status
 
         self.container_action_btn = LabelFrame(self,bg="#4f4f4f",padx=30,pady=10)
-        self.container_action_btn.grid(row=1,column=1,padx=(20,30),pady=(55,60))
+        self.container_action_btn.grid(row=1,column=1,padx=(10,30),pady=(55,60))
        
         self.photo_forward_arrow = PhotoImage(file="icons/ico_right-arrow.png")
-        self.btn_next_frame = Button(self.container_action_btn,image=self.photo_forward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
+        self.btn_next_frame = Button(self.container_action_btn,image=self.photo_forward_arrow, bg = "#383838", fg = "black",
                                 command = lambda: parent.show_frame(ButtonsTest))
         self.btn_next_frame.image = self.photo_forward_arrow
-        self.btn_next_frame.grid(row=0,column=0, pady=65)
+        self.btn_next_frame.grid(row=0,column=0, pady=75)
 
-        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",25,"bold"),
+        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",16,"bold"),
                         command = lambda: self.exit_guided_check())
-        self.btn_exit.grid(row=1,column=0,pady=(20,0))
+        self.btn_exit.grid(row=1,column=0,pady=(5,10))
 
 class ButtonsTest(Frame,FunctionalityJogBox):
     """
@@ -937,12 +937,12 @@ class ButtonsTest(Frame,FunctionalityJogBox):
             "play_pause": 0
             }
 
-        Label(self, text="STEP 2: BUTTON TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 25,"bold")).grid(row=0,column=0,columnspan=2,padx=(25,5),pady=(10,0))
+        Label(self, text="STEP 2: BUTTON TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 12,"bold")).grid(row=0,column=0,columnspan=2,padx=(25,5),pady=(10,0))
 
         self.container = LabelFrame(self,bg="#4f4f4f")
         self.container.grid(row=1,column=0,padx=(10,5))
 
-        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 20,"bold")).grid(row=0,column=0,pady=(10,10),padx=20)
+        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 11,"bold")).grid(row=0,column=0,pady=(10,10),padx=20)
 
         help_text = """In this step we will test the functioning of the jogbox keypad. \n
         1. Click the "Start" button to begin testing.\n
@@ -950,33 +950,33 @@ class ButtonsTest(Frame,FunctionalityJogBox):
         3. If a button press is registered then the corresponding button will turn green on the interface and stay that way.\n
         4. When all the buttons have been tested click the "Stop" button to stop testing.\n
         5. Continue to the next step."""
-        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",width=250,bd=2,font=("Robot", 16,"normal"), justify='left').grid(row=1,column=0,padx=(5,5))
+        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",width=350,bd=2,font=("Robot", 10,"normal"), justify='left').grid(row=1,column=0,padx=(5,5))
         
-        self.btn_start_test = Button(self.container, text = "START", bg = "green", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=30,
+        self.btn_start_test = Button(self.container, text = "START", bg = "green", fg = "white", font = ("Robot",12,"bold"),pady=10,padx=30,
                                 command = lambda: self.start_stop_test())
         self.btn_start_test.grid(row = 2,column = 0,padx=10)
 
         self.container_jogbox_btn = JogboxKeypadModelLabel(self.container)
-        self.container_jogbox_btn.grid(row=0,column=1,rowspan=3,padx=(50,0))
+        self.container_jogbox_btn.grid(row=0,column=1,rowspan=3,padx=(10,5))
         
         self.container_action_btn = LabelFrame(self,bg="#4f4f4f",padx=20,pady=100)
-        self.container_action_btn.grid(row=1,column=2,padx=(20,0))
+        self.container_action_btn.grid(row=1,column=2,padx=(5,0))
 
         self.photo_backward_arrow = PhotoImage(file="icons/ico_left-arrow.png")#.subsample(2,2)
-        self.btn_previous_frame = Button(self.container_action_btn,image=self.photo_backward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
+        self.btn_previous_frame = Button(self.container_action_btn,image=self.photo_backward_arrow, bg = "#383838", fg = "black",
                                     command = lambda: [parent.show_frame(ConnectionTest),self.stop_test()])
         self.btn_previous_frame.image = self.photo_backward_arrow
         self.btn_previous_frame.grid(row=0,column=0,padx=(5,5))
 
         self.photo_forward_arrow = PhotoImage(file="icons/ico_right-arrow.png")#.subsample(2,2)
-        self.btn_next_frame = Button(self.container_action_btn,image=self.photo_forward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
+        self.btn_next_frame = Button(self.container_action_btn,image=self.photo_forward_arrow, bg = "#383838", fg = "black",
                                 command = lambda: [parent.show_frame(FeedrateTest),self.stop_test()])
         self.btn_next_frame.image = self.photo_forward_arrow
         self.btn_next_frame.grid(row=0,column=1,padx=(5,5))
 
-        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",25,"bold"),
+        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",16,"bold"),
                         command = lambda: self.exit_guided_check())
-        self.btn_exit.grid(row=1,column=0,columnspan=2,pady=20)
+        self.btn_exit.grid(row=1,column=0,columnspan=2,pady=(60,5))
 
     def test_loop(self):
         """ 
@@ -1153,12 +1153,12 @@ class FeedrateTest(Frame, FunctionalityJogBox):
             "100": 0
             }
 
-        Label(self, text="STEP 3: FEEDRATE TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 24,"bold")).grid(row=0,column=0,columnspan=2,padx=(120,0),pady=(40,25))
+        Label(self, text="STEP 3: FEEDRATE TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 14,"bold")).grid(row=0,column=0,columnspan=2,padx=(120,0),pady=(40,25))
 
         self.container = LabelFrame(self,bg="#4f4f4f")
         self.container.grid(row=1,column=0,padx=(10,0))
 
-        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 20,"bold")).grid(row=0,column=0,pady=(10,10),padx=20)
+        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 12,"bold")).grid(row=0,column=0,pady=(10,10),padx=20)
 
         help_text = """In this step we will test the function of the feedrate potentiometer.\n
         1. Click the "Start" button to begin testing.\n
@@ -1166,9 +1166,9 @@ class FeedrateTest(Frame, FunctionalityJogBox):
         3. The bar on the right will show the corresponding value of the feedrate.\n
         4. When you have turned the potentiometer through its range click on "Stop".\n
         5. Continue to the next step."""
-        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",width=350,bd=2,font=("Robot", 16,"normal"), justify='left').grid(row=1,column=0,padx=(40,20))
+        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",width=350,bd=2,font=("Robot", 8,"normal"), justify='left').grid(row=1,column=0,padx=(40,20))
         
-        self.btn_start_test = Button(self.container, text = "START", bg = "green", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=30,
+        self.btn_start_test = Button(self.container, text = "START", bg = "green", fg = "white", font = ("Robot",10,"bold"),pady=10,padx=30,
                             command = lambda: self.start_stop_test())
         self.btn_start_test.grid(row = 2,column = 0,padx=10)
 
@@ -1184,15 +1184,15 @@ class FeedrateTest(Frame, FunctionalityJogBox):
         self.btn_previous_frame = Button(self.container_action_btn,image=self.photo_backward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
                             command = lambda: [parent.show_frame(ButtonsTest),self.stop_test()])
         self.btn_previous_frame.image = self.photo_backward_arrow
-        self.btn_previous_frame.grid(row=0,column=0,padx=10)
+        self.btn_previous_frame.grid(row=0,column=0,padx=2)
 
         self.photo_forward_arrow = PhotoImage(file="icons/ico_right-arrow.png")
         self.btn_next_frame = Button(self.container_action_btn,image=self.photo_forward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
                         command = lambda: [parent.show_frame(JoystickTest),self.stop_test()])
         self.btn_next_frame.image = self.photo_forward_arrow
-        self.btn_next_frame.grid(row=0,column=1,padx=10)
+        self.btn_next_frame.grid(row=0,column=1,padx=2, pady=10)
 
-        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",25,"bold"),
+        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",14,"bold"),
                         command = lambda: self.exit_guided_check())
         self.btn_exit.grid(row=1,column=0,columnspan=2,pady=20,padx=20)
 
@@ -1318,12 +1318,12 @@ class JoystickTest(Frame,FunctionalityJogBox):
                 "90": 0}
             }
 
-        Label(self, text="STEP 4: JOYSTICK TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 24,"bold")).grid(row=0,column=0,columnspan=2,padx=(120,0),pady=(40,25))
+        Label(self, text="STEP 4: JOYSTICK TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 14,"bold")).grid(row=0,column=0,columnspan=2,padx=(120,0),pady=(5,5))
 
         self.container = LabelFrame(self,bg="#4f4f4f")
         self.container.grid(row=1,column=0,padx=(15,5))
 
-        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 20,"bold")).grid(row=0,column=0,pady=(10,10),padx=10)
+        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 12,"bold")).grid(row=0,column=0,pady=(5,5),padx=10)
 
         help_text = """In this step we will test the function of the x, y and z joystick.\n
         1. Click the "Start" button to begin testing.\n
@@ -1331,9 +1331,9 @@ class JoystickTest(Frame,FunctionalityJogBox):
         3. The bars on the right will show the corresponding value that is being moved.\n
         4. When you have turned x, y and z through their range click on "Stop".\n
         5. Continue to the next step."""
-        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,width=400,font=("Robot", 16,"normal"), justify='left').grid(row=1,column=0,padx=(2,0))
+        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,width=400,font=("Robot", 10,"normal"), justify='left').grid(row=1,column=0,padx=(2,0))
         
-        self.btn_start_test = Button(self.container, text = "START", bg = "green", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=30,
+        self.btn_start_test = Button(self.container, text = "START", bg = "green", fg = "white", font = ("Robot",10,"bold"),pady=10,padx=30,
                             command = lambda: self.start_stop_test())
         self.btn_start_test.grid(row = 2,column = 0,padx=10)
 
@@ -1347,16 +1347,15 @@ class JoystickTest(Frame,FunctionalityJogBox):
         self.btn_previous_frame = Button(self.container_action_btn,image=self.photo_backward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
                             command = lambda: [parent.show_frame(FeedrateTest),self.stop_test()])
         self.btn_previous_frame.image = self.photo_backward_arrow
-        self.btn_previous_frame.grid(row=0,column=0,padx=10)
+        self.btn_previous_frame.grid(row=0,column=0,padx=3)
 
         self.photo_forward_arrow = PhotoImage(file="icons/ico_right-arrow.png")
         self.btn_next_frame = Button(self.container_action_btn,image=self.photo_forward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
                         command = lambda: [parent.show_frame(LedTest),self.stop_test()])
-                    
         self.btn_next_frame.image = self.photo_forward_arrow
-        self.btn_next_frame.grid(row=0,column=1,padx=10)
+        self.btn_next_frame.grid(row=0,column=1,padx=3)
 
-        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",25,"bold"),
+        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",14,"bold"),
                         command = lambda: self.exit_guided_check())
         self.btn_exit.grid(row=1,column=0,columnspan=2,pady=20,padx=20)
 
@@ -1503,12 +1502,12 @@ class LedTest(Frame,FunctionalityJogBox):
             "play_pause": 0
             }
 
-        Label(self, text="STEP 5: LED / BUZZER TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 24,"bold")).grid(row=0,column=0,columnspan=2,padx=(125,25),pady=(5,2))
+        Label(self, text="STEP 5: LED / BUZZER TESTING",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 14,"bold")).grid(row=0,column=0,columnspan=2,padx=(125,25),pady=(5,2))
 
         self.container = LabelFrame(self,bg="#4f4f4f")
         self.container.grid(row=1,column=0,padx=(5,0))
 
-        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 20,"bold")).grid(row=0,column=0,columnspan=2,padx=20)
+        Label(self.container, text="INSTRUCTIONS: ",borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,font=("Robot", 12,"bold")).grid(row=0,column=0,columnspan=2,padx=20)
 
         help_text = """In this step we will test the function of the led's and buzzer of the jogbox.\n
         1. Click the "Test led" button to begin ciclying through the led's.\n
@@ -1516,15 +1515,15 @@ class LedTest(Frame,FunctionalityJogBox):
         3. When the test finishes all the led's will light up followed by 2 beeps.\n
         4. If a certain led is NOT turning on, then click its corresponding button on the interface.\n
         5. Continue to the next step."""
-        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,width=350,font=("Robot", 16,"normal"), justify='left').grid(row=1,column=0,columnspan=2,padx=(10,5))
+        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,width=350,font=("Robot", 10,"normal"), justify='left').grid(row=1,column=0,columnspan=2,padx=(10,5))
         
-        self.btn_start_test_led = Button(self.container, text = "TEST LED", bg = "green", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=30,
+        self.btn_start_test_led = Button(self.container, text = "TEST LED", bg = "green", fg = "white", font = ("Robot",10,"bold"),pady=10,padx=30,
                                 command = lambda: self.led_test(self.parent.frames[ConnectionTest].connect_status))
-        self.btn_start_test_led.grid(row = 2,column = 0,padx=10)
+        self.btn_start_test_led.grid(row = 2,column = 0,padx=5)
 
-        self.btn_start_test_buzzer = Button(self.container, text = "TEST BUZZER", bg = "green", fg = "white", font = ("Robot",14,"bold"),pady=10,padx=30,
+        self.btn_start_test_buzzer = Button(self.container, text = "TEST BUZZER", bg = "green", fg = "white", font = ("Robot",9,"bold"),pady=10,padx=30,
                                 command = lambda: self.buzzer_test(self.parent.frames[ConnectionTest].connect_status))
-        self.btn_start_test_buzzer.grid(row = 2,column = 1,padx=10)
+        self.btn_start_test_buzzer.grid(row = 2,column = 1,padx=5)
 
         self.container_jogbox_btn = JogboxKeypadModelButton(self.container,1)
         self.container_jogbox_btn.grid(row=0,column=2,rowspan=4,padx=(20,0))
@@ -1536,17 +1535,17 @@ class LedTest(Frame,FunctionalityJogBox):
         self.btn_previous_frame = Button(self.container_action_btn,image=self.photo_backward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
                                     command = lambda: [parent.show_frame(JoystickTest)])
         self.btn_previous_frame.image = self.photo_backward_arrow
-        self.btn_previous_frame.grid(row=0,column=0,padx=10)
+        self.btn_previous_frame.grid(row=0,column=0,padx=3)
 
         self.photo_forward_arrow = PhotoImage(file="icons/ico_right-arrow.png")
         self.btn_next_frame = Button(self.container_action_btn,image=self.photo_forward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
                                 command = lambda: [parent.show_frame(TestResults),self.update_results()])
         self.btn_next_frame.image = self.photo_forward_arrow
-        self.btn_next_frame.grid(row=0,column=1,padx=10)
+        self.btn_next_frame.grid(row=0,column=1,padx=3)
 
-        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",25,"bold"),
+        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",14,"bold"),
                         command = lambda: self.exit_guided_check())
-        self.btn_exit.grid(row=1,column=0,columnspan=2,pady=20)
+        self.btn_exit.grid(row=1,column=0,columnspan=2,pady=40)
 
     def test_loop(self):
         """ 
@@ -1708,43 +1707,40 @@ class TestResults(Frame, FunctionalityJogBox):
             "feedrate": 0
             }
 
-        Label(self, text="STEP 6: RESULTS",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 24,"bold")).grid(row=0,column=0,columnspan=2,padx=(120,0),pady=(5,5))
+        Label(self, text="STEP 6: RESULTS",borderwidth=2,bg="gray",fg="#ffffff",bd=2,font=("Robot", 14,"bold")).grid(row=0,column=0,columnspan=2,padx=(120,0),pady=(5,5))
 
         self.container = LabelFrame(self,bg="#4f4f4f")
-        self.container.grid(row=1,column=0,padx=(30,10))
+        self.container.grid(row=1,column=0,padx=(10,10))
 
-        help_text = """For each of the test we performed on the jogbox we have a corresponding result box\n
-                Each box will show:\n
-                -RED: Not detected or not working\n
-                -GREEN: Detected and functioning correctly"""
-        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,width=150,font=("Robot", 14,"bold"), justify='left').grid(row=1,column=0,padx=(40,20))
+        help_text = """For each of the test we performed on the jogbox we have a corresponding result box\n\nEach box will show:\n\n-RED: Not detected or not working\n\n-GREEN: Detected and functioning correctly"""
+        Message(self.container, text=help_text,borderwidth=2,bg="#4f4f4f",fg="#ffffff",bd=2,width=200,font=("Robot", 9,"normal"), justify='left').grid(row=1,column=0,padx=(5,10))
         
-        self.lbl_result_x = Label(self.container, text = "JOYSTICK X",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",16,"bold"),padx=10,pady=10)
-        self.lbl_result_x.grid(row = 2,column = 0,pady=5,padx=2)
+        self.lbl_result_x = Label(self.container, text = "JOYSTICK X",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",8,"bold"),padx=10,pady=10)
+        self.lbl_result_x.grid(row = 2,column = 0,pady=2,padx=2)
 
-        self.lbl_result_y = Label(self.container, text = "JOYSTICK Y",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",16,"bold"),padx=10,pady=10)
-        self.lbl_result_y.grid(row = 3,column = 0,pady=5,padx=2)
+        self.lbl_result_y = Label(self.container, text = "JOYSTICK Y",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",8,"bold"),padx=10,pady=10)
+        self.lbl_result_y.grid(row = 3,column = 0,pady=2,padx=2)
 
-        self.lbl_result_z = Label(self.container, text = "JOYSTICK Z",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",16,"bold"),padx=10,pady=10)
-        self.lbl_result_z.grid(row = 4,column = 0,pady=5,padx=2)
+        self.lbl_result_z = Label(self.container, text = "JOYSTICK Z",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",8,"bold"),padx=10,pady=10)
+        self.lbl_result_z.grid(row = 4,column = 0,pady=2,padx=2)
 
-        self.lbl_result_feedrate = Label(self.container, text = "FEEDRATE",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",16,"bold"),padx=15,pady=10)
-        self.lbl_result_feedrate.grid(row = 5,column = 0,pady=5,padx=2)
+        self.lbl_result_feedrate = Label(self.container, text = "FEEDRATE",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",8,"bold"),padx=15,pady=10)
+        self.lbl_result_feedrate.grid(row = 5,column = 0,pady=2,padx=2)
         
-        Label(self.container, text="KEYPAD",borderwidth=2, wraplength=1,bg="#4F4F4F",fg="white",bd=2,font=("Robot", 35,"bold")).grid(row=0,rowspan=6,column=1,padx=(10,0))
+        Label(self.container, text="KEYPAD",borderwidth=2, wraplength=1,bg="#4F4F4F",fg="white",bd=2,font=("Robot", 20,"bold")).grid(row=0,rowspan=6,column=1,padx=(10,0))
 
         self.container_jogbox_btn = JogboxKeypadModelLabel(self.container)
         self.container_jogbox_btn.fail_all()
         self.container_jogbox_btn.grid(row=0,column=2,rowspan=6,padx=(0,10))
 
-        Label(self.container, text="LEDS",borderwidth=2, wraplength=1,bg="#4F4F4F",fg="white",bd=2,font=("Robot", 35,"bold")).grid(row=0,rowspan=6,column=3)
+        Label(self.container, text="LEDS",borderwidth=2, wraplength=1,bg="#4F4F4F",fg="white",bd=2,font=("Robot", 20,"bold")).grid(row=0,rowspan=6,column=3)
 
         self.container_jogbox_led = JogboxKeypadModelLabel(self.container, 1)
         self.container_jogbox_led.press_all()
         self.container_jogbox_led.grid(row=0,column=4,rowspan=6,padx=(0,0))
       
         self.container_action_btn = LabelFrame(self,bg="#4f4f4f",pady=110)
-        self.container_action_btn.grid(row=1,column=2,padx=(10,0))
+        self.container_action_btn.grid(row=1,column=2,padx=(5,0))
 
         self.photo_backward_arrow = PhotoImage(file="icons/ico_left-arrow.png")
         self.btn_previous_frame = Button(self.container_action_btn,image=self.photo_backward_arrow, bg = "#383838", fg = "black", font = ("Robot",20,"bold"),
@@ -1752,9 +1748,9 @@ class TestResults(Frame, FunctionalityJogBox):
         self.btn_previous_frame.image = self.photo_backward_arrow
         self.btn_previous_frame.grid(row=0,column=0,padx=5)
 
-        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",25,"bold"),
+        self.btn_exit = Button(self.container_action_btn,text="EXIT", bg = "red", fg = "white", font = ("Robot",12,"bold"),
                         command = lambda: self.exit_guided_check())
-        self.btn_exit.grid(row=1,column=0,pady=20,padx=10)
+        self.btn_exit.grid(row=1,column=0,pady=10,padx=5)
 
     def reset_results (self):
         """ 
@@ -1855,40 +1851,40 @@ class JogboxMonitorMode(Frame, FunctionalityJogBox):
 
         self.holder_test_loop = None
         
-        Label(self, text="MONITOR MODE",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 26,"bold")).grid(row=0,column=0,columnspan=6,pady=(5,5))
+        Label(self, text="MONITOR MODE",borderwidth=2,bg="gray",fg="white",bd=2,font=("Robot", 16,"bold")).grid(row=0,column=0,columnspan=6,pady=(5,5))
 
-        Label(self, text="JOYSTICK",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 22,"bold")).grid(row=1,column=0,padx=(10,0))
+        Label(self, text="JOYSTICK",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 10,"bold")).grid(row=1,column=0,padx=(10,0))
         self.container_jogbox_joystick = JoystickBarsFrame(self)
         self.container_jogbox_joystick.grid(row=1,column=1,pady=10,padx=(10,15))
 
-        Label(self, text="FEEDRATE",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 22,"bold")).grid(row=1,column=2)
+        Label(self, text="FEEDRATE",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 10,"bold")).grid(row=1,column=2)
         self.container_jogbox_feedrate = FeedrateBarFrame(self)
         self.container_jogbox_feedrate.grid(row=1,column=3,pady=10,padx=(10,15))
         
-        Label(self, text="KEYPAD",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 22,"bold")).grid(row=1,column=4)
+        Label(self, text="KEYPAD",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 10,"bold")).grid(row=1,column=4)
         self.container_jogbox_btn = JogboxKeypadModelLabel(self)
         self.container_jogbox_btn.grid(row=1,column=5,pady=10,padx=(10,15))
 
-        Label(self, text="ACTIONS",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 22,"bold")).grid(row=1,column=6)
+        Label(self, text="ACTIONS",borderwidth=2, wraplength=1,bg="gray",fg="white",bd=2,font=("Robot", 10,"bold")).grid(row=1,column=6)
         self.container_action_btn = LabelFrame(self,pady=40,bg="#4f4f4f")
         self.container_action_btn.grid(row=1,column=7,padx=(10,60))
 
-        self.btn_connect_serial = Button(self.container_action_btn, text = "CONNECT SERIAL", bg = "#383838", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=5,
+        self.btn_connect_serial = Button(self.container_action_btn, text = "CONNECT SERIAL", bg = "#383838", fg = "white", font = ("Robot",8,"bold"),pady=10,padx=2,
                                     command = lambda: self.connect_serial())
-        self.btn_connect_serial.grid(row = 1,column = 0,pady=3,padx=10)
+        self.btn_connect_serial.grid(row = 1,column = 0,pady=3,padx=3)
 
-        self.lbl_serial_status = Label(self.container_action_btn, text = "I/0",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",30,"bold"),padx=10,pady=10)
-        self.lbl_serial_status.grid(row = 1,column = 1,pady=5,padx=10)
+        self.lbl_serial_status = Label(self.container_action_btn, text = "I/0",borderwidth=3,relief="groove", bg = "red", fg = "white", font = ("Robot",12,"bold"),padx=2,pady=10)
+        self.lbl_serial_status.grid(row = 1,column = 1,pady=5,padx=3)
 
-        self.btn_led_test = Button(self.container_action_btn, text = "TEST LEDS", bg = "#383838", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=30,
+        self.btn_led_test = Button(self.container_action_btn, text = "TEST LEDS", bg = "#383838", fg = "white", font = ("Robot",10,"bold"),pady=10,padx=10,
                             command = lambda: self.led_test(self.connect_status))
         self.btn_led_test.grid(row = 2,column = 0,columnspan=2,pady=10,padx=5)
 
-        self.btn_buzzer_test = Button(self.container_action_btn, text = "TEST BUZZER", bg = "#383838", fg = "white", font = ("Robot",15,"bold"),pady=10,padx=22,
+        self.btn_buzzer_test = Button(self.container_action_btn, text = "TEST BUZZER", bg = "#383838", fg = "white", font = ("Robot",10,"bold"),pady=10,padx=12,
                                 command = lambda: self.buzzer_test(self.connect_status))
         self.btn_buzzer_test.grid(row = 3,column = 0,columnspan=2,pady=10,padx=5)
         
-        self.btn_exit = Button(self.container_action_btn, text = "EXIT", bg = "red", fg = "white", font = ("Robot",25,"bold"),
+        self.btn_exit = Button(self.container_action_btn, text = "EXIT", bg = "red", fg = "white", font = ("Robot",10,"bold"),
                         command = lambda: self.exit_monitor_mode())
         self.btn_exit.grid(row = 4,column = 0,columnspan=2,pady=(20,10),padx=20)
 
@@ -1916,8 +1912,8 @@ class FeedrateBarFrame(LabelFrame):
         """
         LabelFrame.__init__(self,parent,bg="#4f4f4f")
 
-        Label(self, text="100%",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='ne', height=7,font=("Robot", 20,"bold") ).grid(row=1,column=0)
-        Label(self, text="0%",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='se', height=7,font=("Robot", 20,"bold") ).grid(row=5,column=0)
+        Label(self, text="100%",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='ne', height=7,font=("Robot", 12,"bold") ).grid(row=1,column=0)
+        Label(self, text="0%",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='se', height=7,font=("Robot", 12,"bold") ).grid(row=5,column=0)
 
         self.progressbar_feedrate = Progressbar(self, length = 240,orient='vertical')
         self.progressbar_feedrate['value'] = 50
@@ -1947,13 +1943,13 @@ class JoystickBarsFrame(LabelFrame):
         """
         LabelFrame.__init__(self,parent,bg="#4f4f4f")
 
-        Label(self, text="100",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='ne', height=6,font=("Robot", 20,"bold") ).grid(row=1,column=0)
-        Label(self, text="0",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='e',font=("Robot", 20,"bold")).grid(row=3,column=0)
-        Label(self, text="-100",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='se', height=6,font=("Robot", 20,"bold")).grid(row=5,column=0)
+        Label(self, text="100",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='ne', height=6,font=("Robot", 12,"bold") ).grid(row=1,column=0)
+        Label(self, text="0",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='e',font=("Robot", 12,"bold")).grid(row=3,column=0)
+        Label(self, text="-100",borderwidth=2,bg="#4f4f4f",fg="#ffffff", anchor='se', height=6,font=("Robot", 12,"bold")).grid(row=5,column=0)
 
-        Label(self, text="X",borderwidth=2,bg="#4f4f4f",fg="#ffffff",font=("Robot", 25,"bold")).grid(row=0,column=1)
-        Label(self, text="Y",borderwidth=2,bg="#4f4f4f",fg="#ffffff",font=("Robot", 25,"bold")).grid(row=0,column=2)
-        Label(self, text="Z",borderwidth=2,bg="#4f4f4f",fg="#ffffff",font=("Robot", 25,"bold")).grid(row=0,column=3)
+        Label(self, text="X",borderwidth=2,bg="#4f4f4f",fg="#ffffff",font=("Robot", 12,"bold")).grid(row=0,column=1)
+        Label(self, text="Y",borderwidth=2,bg="#4f4f4f",fg="#ffffff",font=("Robot", 12,"bold")).grid(row=0,column=2)
+        Label(self, text="Z",borderwidth=2,bg="#4f4f4f",fg="#ffffff",font=("Robot", 12,"bold")).grid(row=0,column=3)
 
         self.progressbar_x = Progressbar(self, length = 225,orient='vertical')
         self.progressbar_x['value'] = 50
@@ -2410,6 +2406,6 @@ class JogboxButtonModelButton(Button):
         self.btn_status = 0
 
 if __name__ == "__main__":
-    app = App(scale = 0.58)
+    app = AppJogBox()
     StartPageJogBox(app).grid
     app.mainloop()

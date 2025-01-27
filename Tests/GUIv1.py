@@ -111,7 +111,7 @@ class StartPage(Frame):
         self.counter_easter = 0
 
         self.start_container = Frame(self,bg="gray", padx=152,pady=20)
-        self.start_container.pack(expand="True", fill='both')
+        self.start_container.pack(expand = True, fill = 'both')
 
         self.start_container_title = Frame(self.start_container,bg="gray")
         self.start_container_title.grid(row=0,column=1)
@@ -194,7 +194,7 @@ class StartPage(Frame):
         self.jogbox_frame.grid(row=2, column=0)
         
         self.jogbox_photo = PhotoImage(file= "icons1/jogbox.png").subsample(6,6)
-        self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command = self.jogbox())#command=lambda: app.show_frame(Jogbox))
+        self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command = self.jogbox)#command=lambda: app.show_frame(Jogbox))
         self.jogbox_btn.image = self.jogbox_photo
         self.jogbox_btn.grid(row=0)
         
@@ -203,8 +203,9 @@ class StartPage(Frame):
 
     def jogbox(self):
         new_window = Toplevel(self)
-        jogbox_app = App(new_window, self)
-        jogbox_app.pack(fill = "both", expand=True)
+        jogbox_app = AppJogBox(new_window)
+        jogbox_app.grid(sticky='nsew')
+        new_window.protocol("WM_DELETE_WINDOW")
     
     def __easter_egg_deploy(self):
         """ 
