@@ -73,7 +73,7 @@ class App(Base,Tk):
         self.grid_columnconfigure(0, weight=1)
         self.port = None
         self.connect_status = 0
-        self.load_frames(StartPage, Settings, Motor, Encoder1, Jogbox, Sensor, PH10, AppJogBox)
+        self.load_frames(StartPage, Settings, Motor, Encoder1, Sensor, PH10)
         self.show_frame(StartPage)  # Frame object to show at the top screen
         self.geometry('800x412+0+0')
         #self.attributes('-fullscreen',True)
@@ -194,14 +194,18 @@ class StartPage(Frame):
         self.jogbox_frame.grid(row=2, column=0)
         
         self.jogbox_photo = PhotoImage(file= "icons1/jogbox.png").subsample(6,6)
-        self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command=lambda: app.show_frame(Jogbox))
+        self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command = self.jogbox())#command=lambda: app.show_frame(Jogbox))
         self.jogbox_btn.image = self.jogbox_photo
         self.jogbox_btn.grid(row=0)
         
         self.jogbox_lbl = Label(self.jogbox_frame, text='JogBox Tester',fg='Black', bg='gray')
         self.jogbox_lbl.grid(row=1)
 
-        
+    def jogbox(self):
+        new_window = Toplevel(self)
+        jogbox_app = App(new_window, self)
+        jogbox_app.pack(fill = "both", expand=True)
+    
     def __easter_egg_deploy(self):
         """ 
             Protected class 
@@ -307,7 +311,7 @@ class PH10(Frame):
        
        self.PH10_exit_btn = Button(self.PH10_container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.PH10_exit_btn.grid()
-       
+"""       
 class Jogbox(AppJogBox):
     def __init__(self): 
        Frame.__init__(self)
@@ -317,7 +321,7 @@ class Jogbox(AppJogBox):
        #self.container.pack(expand="True", fill='both')
        self.jogbox_exit_btn = Button(self.container, text='EXIT',bg='red',fg='white',font=("Robot", 25,"bold"), command=lambda: app.show_frame(StartPage))
        self.jogbox_exit_btn.grid()
-       
+   """    
 class Sensor(SensorTest):
     def __init__(self):
        Frame.__init__(self)

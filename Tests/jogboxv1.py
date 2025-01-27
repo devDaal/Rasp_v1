@@ -698,7 +698,7 @@ class AppJogBox(BaseJogBox,Frame):
         None
     """
 
-    def __init__(self, *args, scale = 1.0, **kwargs):
+    def __init__(self,root, *args, scale = 1.0, **kwargs):
         """ 
             Parameters
             ---------
@@ -711,8 +711,9 @@ class AppJogBox(BaseJogBox,Frame):
         
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
-        self.title("Jogbox Tester")
-        self.call('tk','scaling', scale )
+        #self.title("Jogbox Tester")
+        self.root = root
+        self.root.call('tk','scaling', scale )
         
         #self.attributes("-fullscreen", True) # For final build this should be ativated
         #self.geometry('800x412+0+0') # Size of screen
