@@ -203,9 +203,15 @@ class StartPage(Frame):
 
     def jogbox(self):
         new_window = Toplevel(self)
-        jogbox_app = AppJogBox(new_window)
+        new_window.geometry("800x412+0+0")
+        jogbox_app = AppJogBox(new_window, self)
         jogbox_app.grid(sticky='nsew')
-        new_window.protocol("WM_DELETE_WINDOW")
+        new_window.protocol("WM_DELETE_WINDOW", lambda: self.on_close_jogbox(new_window))
+        
+    def on_close_jogbox(self, window):
+        
+        print(self.winfo_children())
+        window.destroy()
     
     def __easter_egg_deploy(self):
         """ 

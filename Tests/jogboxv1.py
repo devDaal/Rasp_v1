@@ -698,7 +698,7 @@ class AppJogBox(BaseJogBox,Frame):
         None
     """
 
-    def __init__(self,root, *args, **kwargs):
+    def __init__(self, root, controller, *args, **kwargs):
         """ 
             Parameters
             ---------
@@ -707,7 +707,9 @@ class AppJogBox(BaseJogBox,Frame):
 
         """
         BaseJogBox.__init__(self)
-        Frame.__init__(self, *args, **kwargs) # Inherit from the main tkinter class
+        Frame.__init__(self, root, *args, **kwargs) # Inherit from the main tkinter class
+        
+        self.controller = controller
         
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
