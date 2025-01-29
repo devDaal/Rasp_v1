@@ -194,7 +194,7 @@ class StartPage(Frame):
         self.jogbox_frame.grid(row=2, column=0)
         
         self.jogbox_photo = PhotoImage(file= "icons1/jogbox.png").subsample(6,6)
-        self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command = self.jogbox)#command=lambda: app.show_frame(Jogbox))
+        self.jogbox_btn = Button(self.jogbox_frame, bg= 'gray', image=self.jogbox_photo,command = self.jogbox)
         self.jogbox_btn.image = self.jogbox_photo
         self.jogbox_btn.grid(row=0)
         
@@ -210,7 +210,10 @@ class StartPage(Frame):
         
     def on_close_jogbox(self, window):
         
-        print(self.winfo_children())
+        #print(Tk.winfo_children(app))
+        
+        for widget in app.winfo_children():
+            print(widget, widget.winfo_class())
         window.destroy()
     
     def __easter_egg_deploy(self):
