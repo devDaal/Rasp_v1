@@ -108,6 +108,7 @@ class StartPage(Frame):
         """
         
         Frame.__init__(self)
+        self.window_counter = 0
         self.counter_easter = 0
 
         self.start_container = Frame(self,bg="gray", padx=152,pady=20)
@@ -200,22 +201,21 @@ class StartPage(Frame):
         
         self.jogbox_lbl = Label(self.jogbox_frame, text='JogBox Tester',fg='Black', bg='gray')
         self.jogbox_lbl.grid(row=1)
-
+        
     def jogbox(self):
-        new_window = Toplevel(self)
-        new_window.geometry("800x412+0+0")
-        jogbox_app = AppJogBox(new_window, self)
-        jogbox_app.grid(sticky='nsew')
-        new_window.protocol("WM_DELETE_WINDOW", lambda: self.on_close_jogbox(new_window))
+        if self.window_counter == 0:  
+            new_window = Toplevel(self)
+            new_window.geometry("800x412+0+0")
+            jogbox_app = AppJogBox(new_window, self)
+            jogbox_app.grid(sticky='nsew')
+            self.window_counter = 1
+            new_window.protocol("WM_DELETE_WINDOW", lambda: (self.window_count(), new_window.destroy()))
+        else:
+            pass
+          
+    def window_count(self):
+        self.window_counter = 0
         
-    def on_close_jogbox(self, window):
-        
-        #print(Tk.winfo_children(app))
-        
-        for widget in app.winfo_children():
-            print(widget, widget.winfo_class())
-        window.destroy()
-    
     def __easter_egg_deploy(self):
         """ 
             Protected class 
@@ -347,5 +347,4 @@ class Sensor(SensorTest):
 
 if __name__ == "__main__":
     app = App()
-    App().grid
     app.mainloop()
